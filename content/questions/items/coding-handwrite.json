@@ -1,0 +1,406 @@
+{
+  "id": "coding-handwrite",
+  "title": "手撕代码",
+  "questions": [
+    {
+      "id": "python-01",
+      "question": "反转一个字符串",
+      "answer": "```python\ndef reverse_string(s):\n    return s[::-1]\n\n# 测试用例\nprint(reverse_string(\"hello\"))  # 输出: \"olleh\"\nprint(reverse_string(\"\"))       # 输出: \"\"\n```\n\n**答案：** 使用切片 [::-1] 是最高效和Pythonic的方式。它从字符串的末尾开始，步长为-1，直到字符串的开头，从而实现反转。",
+      "tags": [
+        "手撕代码",
+        "Python"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "python-02",
+      "question": "判断一个字符串是否是回文",
+      "answer": "```python\ndef is_palindrome(s):\n    # 处理大小写和空格，例如 \"A man a plan a canal Panama\"\n    s = ''.join(char.lower() for char in s if char.isalnum())\n    return s == s[::-1]\n\n# 测试用例\nprint(is_palindrome(\"radar\"))    # 输出: True\nprint(is_palindrome(\"hello\"))    # 输出: False\nprint(is_palindrome(\"A man a plan a canal Panama\")) # 输出: True\n```\n\n**答案：** 核心思想是处理后的字符串（仅保留字母数字并转为小写）是否与其反转字符串相等。",
+      "tags": [
+        "手撕代码",
+        "Python"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "python-03",
+      "question": "计算斐波那契数列第n项（使用递归和循环两种方法）",
+      "answer": "```python\n方法一：循环（高效，推荐）\n\ndef fibonacci_iterative(n):\n    if n <= 1:\n        return n\n    a, b = 0, 1\n    for _ in range(2, n + 1):\n        a, b = b, a + b\n    return b\n\n# 测试用例\nprint(fibonacci_iterative(10)) # 输出: 55\n方法二：递归（低效，但考察算法思想）\n\ndef fibonacci_recursive(n):\n    if n <= 1:\n        return n\n    return fibonacci_recursive(n-1) + fibonacci_recursive(n-2)\n\n# 测试用例\nprint(fibonacci_recursive(10)) # 输出: 55\n```\n\n**答案：** 面试中通常希望看到循环方法，因为它的时间复杂度是O(n)，而递归是O(2^n)。但可能要求写出递归版本并分析其缺点。",
+      "tags": [
+        "手撕代码",
+        "Python"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "python-04",
+      "question": "找出列表中的重复元素",
+      "answer": "```python\ndef find_duplicates(lst):\n    seen = set()\n    duplicates = set()\n    for item in lst:\n        if item in seen:\n            duplicates.add(item)\n        else:\n            seen.add(item)\n    return list(duplicates)\n\n# 测试用例\nprint(find_duplicates([1, 2, 3, 2, 1, 5, 6, 5, 5, 5])) # 输出: [1, 2, 5]\n```\n\n**答案：** 使用一个集合 seen 来跟踪已经遇到过的元素。如果一个元素已经在 seen 中，则将其添加到 duplicates 集合中（使用集合自动去重）。",
+      "tags": [
+        "手撕代码",
+        "Python"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "python-05",
+      "question": "统计列表中每个元素的出现次数",
+      "answer": "```python\nfrom collections import Counter\n\ndef count_frequency(lst):\n    return dict(Counter(lst))\n\n# 测试用例\nprint(count_frequency(['a', 'b', 'a', 'c', 'b', 'a'])) # 输出: {'a': 3, 'b': 2, 'c': 1}\n```\n\n**答案：** collections.Counter 是专门为此目的设计的工具，非常高效和简洁。也可以使用字典自己实现：frequency = {}; for item in lst: frequency[item] = frequency.get(item, 0) + 1。",
+      "tags": [
+        "手撕代码",
+        "Python"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "python-06",
+      "question": "实现一个装饰器，计算函数的执行时间",
+      "answer": "```python\nimport time\nimport functools\n\ndef timer(func):\n    @functools.wraps(func) # 保留原函数的元信息\n    def wrapper(*args, **kwargs):\n        start_time = time.perf_counter()\n        result = func(*args, **kwargs)\n        end_time = time.perf_counter()\n        print(f\"函数 {func.__name__} 运行耗时: {end_time - start_time:.4f} 秒\")\n        return result\n    return wrapper\n\n@timer\ndef example_function(n):\n    time.sleep(n)\n    return \"Done\"\n\n# 测试用例\nexample_function(2)\n# 输出: 函数 example_function 运行耗时: 2.00xx 秒\n```\n\n**答案：** 这是一个装饰器的经典用例。@functools.wraps 是一个好习惯，它确保被装饰的函数保留其名称和文档字符串。time.perf_counter() 提供了最高精度的计时。",
+      "tags": [
+        "手撕代码",
+        "Python"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "python-07",
+      "question": "写一个函数，检查传入的文件路径是否存在，如果存在则读取文件内容",
+      "answer": "```python\nimport os\n\ndef read_file_safely(file_path):\n    if not os.path.exists(file_path):\n        return f\"错误：文件 {file_path} 不存在。\"\n    try:\n        with open(file_path, 'r', encoding='utf-8') as file:\n            content = file.read()\n        return content\n    except Exception as e:\n        return f\"读取文件时发生错误: {e}\"\n\n# 测试用例（需要准备一个 test.txt 文件）\nprint(read_file_safely(\"test.txt\"))\nprint(read_file_safely(\"nonexistent_file.txt\"))\n```\n\n**答案：** 这道题考察文件操作和异常处理。先检查路径是否存在是第一步，但使用 with open 并捕获可能的异常（如编码错误）同样重要，这体现了代码的健壮性。",
+      "tags": [
+        "手撕代码",
+        "Python"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "python-08",
+      "question": "对字典列表进行排序（根据某个共同的键）",
+      "answer": "```python\ndef sort_dict_list(lst, key):\n    return sorted(lst, key=lambda x: x[key])\n\n# 测试用例\ndata = [\n    {'name': 'Alice', 'age': 25},\n    {'name': 'Bob', 'age': 30},\n    {'name': 'Charlie', 'age': 22}\n]\nprint(sort_dict_list(data, 'age'))\n# 输出: [{'name': 'Charlie', 'age': 22}, {'name': 'Alice', 'age': 25}, {'name': 'Bob', 'age': 30}]\n```\n\n**答案：** sorted() 函数的 key 参数非常强大，它接受一个函数来指定排序的依据。这里使用 lambda 函数从每个字典中提取出指定的键的值作为排序键。",
+      "tags": [
+        "手撕代码",
+        "Python"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "python-09",
+      "question": "合并两个字典",
+      "answer": "```python\ndef merge_dicts(dict1, dict2):\n    # 在Python 3.5+中，可以使用 ** 操作符解包\n    return {**dict1, **dict2}\n\n# 另一种方式（更新dict1）\n# def merge_dicts(dict1, dict2):\n#     dict1.update(dict2)\n#     return dict1\n\n# 测试用例\nd1 = {'a': 1, 'b': 2}\nd2 = {'b': 3, 'c': 4}\nprint(merge_dicts(d1, d2)) # 输出: {'a': 1, 'b': 3, 'c': 4}\n```\n\n**答案：** {**dict1, **dict2} 是Python 3.5+引入的最简洁的方法。如果键有冲突，后者（dict2）的值会覆盖前者（dict1）的值。",
+      "tags": [
+        "手撕代码",
+        "Python"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "python-10",
+      "question": "列表推导式：将一个列表中的整数转换为字符串，并过滤掉偶数",
+      "answer": "```python\ndef convert_and_filter(lst):\n    return [str(x) for x in lst if x % 2 != 0]\n\n# 测试用例\nprint(convert_and_filter([1, 2, 3, 4, 5, 6])) # 输出: ['1', '3', '5']\n```\n\n**答案：** 列表推导式是Python的核心特性，可以简洁地实现map和filter操作。if x % 2 != 0 是过滤条件，str(x) 是转换操作。",
+      "tags": [
+        "手撕代码",
+        "Python"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "python-11",
+      "question": "实现一个上下文管理器，用于文件操作",
+      "answer": "```python\nclass FileManager:\n    def __init__(self, filename, mode):\n        self.filename = filename\n        self.mode = mode\n        self.file = None\n\n    def __enter__(self):\n        self.file = open(self.filename, self.mode, encoding='utf-8')\n        return self.file\n\n    def __exit__(self, exc_type, exc_val, exc_tb):\n        if self.file:\n            self.file.close()\n        # 如果返回True，则不会抛出异常。返回None或False则会抛出。\n        # 这里我们选择不处理异常，让其正常抛出\n        return False\n\n# 测试用例\nwith FileManager('test.txt', 'w') as f:\n    f.write(\"Hello, Context Manager!\")\n```\n\n**答案：** 上下文管理器通过 __enter__ 和 __exit__ 两个魔法方法实现。with 语句会自动管理资源的获取和释放（如打开和关闭文件），即使发生异常也能保证 __exit__ 方法被调用，从而避免资源泄漏。",
+      "tags": [
+        "手撕代码",
+        "Python"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "python-12",
+      "question": "使用递归列出目录下的所有文件（考察os.walk）",
+      "answer": "```python\nimport os\n\ndef list_files_recursively(directory):\n    file_list = []\n    for root, dirs, files in os.walk(directory):\n        for file in files:\n            # 连接根目录和文件名，形成完整路径\n            file_path = os.path.join(root, file)\n            file_list.append(file_path)\n    return file_list\n\n# 测试用例\nfiles = list_files_recursively('.') # 列出当前目录下所有文件\nfor f in files[:5]: # 打印前5个\n    print(f)\n```\n\n**答案：** os.walk(directory) 是遍历目录树的标准方法，它返回一个生成器，每次产生一个三元组 (当前文件夹路径, 子文件夹列表, 文件列表)。这比手动写递归要简单和安全得多。",
+      "tags": [
+        "手撕代码",
+        "Python"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "python-13",
+      "question": "计算一个数的阶乘",
+      "answer": "```python\ndef factorial(n):\n    if n < 0:\n        raise ValueError(\"阶乘只能计算非负整数。\")\n    result = 1\n    for i in range(1, n + 1):\n        result *= i\n    return result\n\n# 测试用例\nprint(factorial(5)) # 输出: 120\nprint(factorial(0)) # 输出: 1\n```\n\n**答案：** 使用循环是计算阶乘最有效的方式。注意处理边界情况：n=0 时结果为1，n为负数时应该抛出异常。",
+      "tags": [
+        "手撕代码",
+        "Python"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "python-14",
+      "question": "过滤出列表中的所有偶数",
+      "answer": "```python\ndef filter_even_numbers(lst):\n    return list(filter(lambda x: x % 2 == 0, lst))\n    # 或者使用列表推导式: [x for x in lst if x % 2 == 0]\n\n# 测试用例\nprint(filter_even_numbers([1, 2, 3, 4, 5, 6, 7, 8])) # 输出: [2, 4, 6, 8]\n```\n\n**答案：** 展示了 filter 函数的使用，它接受一个函数和一个可迭代对象，并返回一个迭代器，其中包含使函数返回True的所有元素。列表推导式是更Pythonic的替代方案。",
+      "tags": [
+        "手撕代码",
+        "Python"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "python-15",
+      "question": "将两个列表合并为一个字典（一个列表为键，另一个为值）",
+      "answer": "```python\ndef lists_to_dict(keys, values):\n    return dict(zip(keys, values))\n\n# 测试用例\nkeys = ['name', 'age', 'city']\nvalues = ['Alice', 25, 'New York']\nprint(lists_to_dict(keys, values))\n# 输出: {'name': 'Alice', 'age': 25, 'city': 'New York'}\n```\n\n**答案：** zip(keys, values) 将两个列表“压缩”成一个可迭代对象，其中每个元素都是一个 (key, value) 元组。dict() 函数可以直接接受这种元组序列来创建字典。",
+      "tags": [
+        "手撕代码",
+        "Python"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "python-16",
+      "question": "实现一个简单的队列（FIFO）类",
+      "answer": "```python\nclass Queue:\n    def __init__(self):\n        self.items = []\n\n    def is_empty(self):\n        return len(self.items) == 0\n\n    def enqueue(self, item):\n        self.items.insert(0, item) # 在列表头部插入，尾部就是队首\n\n    def dequeue(self):\n        if not self.is_empty():\n            return self.items.pop() # 从列表尾部弹出\n        else:\n            raise IndexError(\"从空队列中出队\")\n\n    def size(self):\n        return len(self.items)\n\n# 测试用例\nq = Queue()\nq.enqueue(1)\nq.enqueue(2)\nq.enqueue(3)\nprint(q.dequeue()) # 输出: 1\nprint(q.dequeue()) # 输出: 2\n```\n\n**答案：** 使用列表模拟队列。enqueue（入队）在列表头部（index=0）插入元素，dequeue（出队）从列表尾部弹出元素。注意检查队列是否为空。",
+      "tags": [
+        "手撕代码",
+        "Python"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "python-17",
+      "question": "去除字符串首尾的空格（不能使用str.strip()）",
+      "answer": "```python\ndef custom_strip(s):\n    start = 0\n    end = len(s) - 1\n\n    # 找到第一个非空格字符的索引\n    while start <= end and s[start] == ' ':\n        start += 1\n\n    # 找到最后一个非空格字符的索引\n    while end >= start and s[end] == ' ':\n        end -= 1\n\n    return s[start:end+1]\n\n# 测试用例\nprint(custom_strip(\"   hello world   \")) # 输出: \"hello world\"\n```\n\n**答案：** 手动实现 strip() 功能。通过两个循环分别找到字符串开头和末尾非空格字符的索引，然后使用切片返回中间的部分。",
+      "tags": [
+        "手撕代码",
+        "Python"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "python-18",
+      "question": "计算字符串中元音字母的个数",
+      "answer": "```python\ndef count_vowels(s):\n    vowels = \"aeiouAEIOU\"\n    count = 0\n    for char in s:\n        if char in vowels:\n            count += 1\n    return count\n\n# 测试用例\nprint(count_vowels(\"Hello World\")) # 输出: 3 (e, o, o)\n```\n\n**答案：** 遍历字符串中的每个字符，检查它是否存在于元音字符串中。注意要同时包含大小写字母。",
+      "tags": [
+        "手撕代码",
+        "Python"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "python-19",
+      "question": "将一段文本拆分成单词，并统计每个单词的出现次数",
+      "answer": "```python\nfrom collections import Counter\nimport re\n\ndef word_count(text):\n    # 使用正则表达式找到所有单词（忽略标点）\n    words = re.findall(r'\\b\\w+\\b', text.lower())\n    return dict(Counter(words))\n\n# 测试用例\ntext = \"Hello world, hello Python! World of Python.\"\nprint(word_count(text))\n# 输出: {'hello': 2, 'world': 2, 'python': 2, 'of': 1}\n```\n\n**答案：** 使用正则表达式 r'\\b\\w+\\b' 可以很好地处理单词边界和标点符号。text.lower() 将所有文本转为小写，确保 \"Hello\" 和 \"hello\" 被算作同一个单词。",
+      "tags": [
+        "手撕代码",
+        "Python"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "python-20",
+      "question": "使用生成器实现一个斐波那契数列",
+      "answer": "```python\ndef fibonacci_generator():\n    a, b = 0, 1\n    while True:\n        yield a\n        a, b = b, a + b\n\n# 测试用例\nfib_gen = fibonacci_generator()\nfor _ in range(10):\n    print(next(fib_gen), end=\" \")\n# 输出: 0 1 1 2 3 5 8 13 21 34\n```\n\n**答案：** 生成器使用 yield 关键字，它可以产生一个值并暂停函数执行，下次调用时从暂停处继续。这对于生成无限序列（如斐波那契数列）非常高效，因为它不会一次性计算所有值并存储在内存中。",
+      "tags": [
+        "手撕代码",
+        "Python"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "java-01",
+      "question": "反转字符串",
+      "answer": "```java\npublic String reverseString(String str) {\n    if (str == null || str.length() <= 1) {\n        return str;\n    }\n    return new StringBuilder(str).reverse().toString();\n}\n\n// 测试用例\n// System.out.println(reverseString(\"hello\")); // 输出: \"olleh\"\n// System.out.println(reverseString(\"\")); // 输出: \"\"\n// System.out.println(reverseString(null)); // 输出: null\n```\n\n**答案：** 使用 StringBuilder 的 reverse() 方法是最直接的做法，同时保留了对 null 和短字符串的边界处理。",
+      "tags": [
+        "手撕代码",
+        "Java"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "java-02",
+      "question": "判断字符串是否是回文",
+      "answer": "```java\npublic boolean isPalindrome(String str) {\n    if (str == null) return false;\n    \n    str = str.replaceAll(\"[^a-zA-Z0-9]\", \"\").toLowerCase();\n    int left = 0, right = str.length() - 1;\n    \n    while (left < right) {\n        if (str.charAt(left) != str.charAt(right)) {\n            return false;\n        }\n        left++;\n        right--;\n    }\n    return true;\n}\n\n// 测试用例\n// System.out.println(isPalindrome(\"A man, a plan, a canal: Panama\")); // true\n// System.out.println(isPalindrome(\"race a car\")); // false\n```\n\n**答案：** 先统一大小写并去掉非字母数字字符，再用双指针从两端向中间比较，是这类题最常见也最清晰的解法。",
+      "tags": [
+        "手撕代码",
+        "Java"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "java-03",
+      "question": "找出数组中第二大的数",
+      "answer": "```java\npublic int findSecondLargest(int[] arr) {\n    if (arr == null || arr.length < 2) {\n        throw new IllegalArgumentException(\"数组长度至少为2\");\n    }\n    \n    int first = Integer.MIN_VALUE;\n    int second = Integer.MIN_VALUE;\n    \n    for (int num : arr) {\n        if (num > first) {\n            second = first;\n            first = num;\n        } else if (num > second && num != first) {\n            second = num;\n        }\n    }\n    \n    if (second == Integer.MIN_VALUE) {\n        throw new IllegalArgumentException(\"没有第二大的数\");\n    }\n    \n    return second;\n}\n\n// 测试用例\n// System.out.println(findSecondLargest(new int[]{12, 35, 1, 10, 34, 1})); // 34\n```\n\n**答案：** 一次遍历同时维护最大值和第二大值，时间复杂度是 O(n)，不需要额外排序。",
+      "tags": [
+        "手撕代码",
+        "Java"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "java-04",
+      "question": "找出数组中缺失的最小正整数",
+      "answer": "```java\npublic int firstMissingPositive(int[] nums) {\n    int n = nums.length;\n    \n    // 第一次遍历，将每个正整数放到正确的位置上\n    for (int i = 0; i < n; i++) {\n        while (nums[i] > 0 && nums[i] <= n && nums[nums[i] - 1] != nums[i]) {\n            int temp = nums[nums[i] - 1];\n            nums[nums[i] - 1] = nums[i];\n            nums[i] = temp;\n        }\n    }\n    \n    // 第二次遍历，找到第一个位置不正确的数\n    for (int i = 0; i < n; i++) {\n        if (nums[i] != i + 1) {\n            return i + 1;\n        }\n    }\n    \n    return n + 1;\n}\n\n// 测试用例\n// System.out.println(firstMissingPositive(new int[]{1, 2, 0})); // 3\n// System.out.println(firstMissingPositive(new int[]{3, 4, -1, 1})); // 2\n```\n\n**答案：** 这题的关键是“原地哈希”，把值为 x 的元素尽量放到下标 x-1 的位置，再找第一个不匹配的位置。",
+      "tags": [
+        "手撕代码",
+        "Java"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "java-05",
+      "question": "合并两个有序数组",
+      "answer": "```java\npublic void mergeSortedArrays(int[] nums1, int m, int[] nums2, int n) {\n    int i = m - 1, j = n - 1, k = m + n - 1;\n    \n    while (i >= 0 && j >= 0) {\n        if (nums1[i] > nums2[j]) {\n            nums1[k--] = nums1[i--];\n        } else {\n            nums1[k--] = nums2[j--];\n        }\n    }\n    \n    while (j >= 0) {\n        nums1[k--] = nums2[j--];\n    }\n}\n\n// 测试用例\n// int[] nums1 = new int[]{1, 2, 3, 0, 0, 0};\n// int[] nums2 = new int[]{2, 5, 6};\n// mergeSortedArrays(nums1, 3, nums2, 3);\n// System.out.println(Arrays.toString(nums1)); // [1, 2, 2, 3, 5, 6]\n```\n\n**答案：** 从后往前填充可以避免覆盖 nums1 原本有效的数据，是这道题的标准解法。",
+      "tags": [
+        "手撕代码",
+        "Java"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "java-06",
+      "question": "字符串转换为整数 (atoi)",
+      "answer": "```java\npublic int myAtoi(String s) {\n    if (s == null || s.length() == 0) return 0;\n    \n    int index = 0, sign = 1, total = 0;\n    \n    while (index < s.length() && s.charAt(index) == ' ') {\n        index++;\n    }\n    \n    if (index == s.length()) return 0;\n    \n    if (s.charAt(index) == '+' || s.charAt(index) == '-') {\n        sign = s.charAt(index) == '+' ? 1 : -1;\n        index++;\n    }\n    \n    while (index < s.length()) {\n        int digit = s.charAt(index) - '0';\n        if (digit < 0 || digit > 9) break;\n        \n        if (Integer.MAX_VALUE / 10 < total || \n            (Integer.MAX_VALUE / 10 == total && Integer.MAX_VALUE % 10 < digit)) {\n            return sign == 1 ? Integer.MAX_VALUE : Integer.MIN_VALUE;\n        }\n        \n        total = total * 10 + digit;\n        index++;\n    }\n    \n    return total * sign;\n}\n\n// 测试用例\n// System.out.println(myAtoi(\"42\")); // 42\n// System.out.println(myAtoi(\"   -42\")); // -42\n// System.out.println(myAtoi(\"4193 with words\")); // 4193\n```\n\n**答案：** 这题重点不在转换本身，而在边界处理，包括前导空格、正负号、非数字字符和整数溢出。",
+      "tags": [
+        "手撕代码",
+        "Java"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "java-07",
+      "question": "找出数组中重复的数字",
+      "answer": "```java\npublic int findDuplicate(int[] nums) {\n    int slow = nums[0];\n    int fast = nums[0];\n    \n    do {\n        slow = nums[slow];\n        fast = nums[nums[fast]];\n    } while (slow != fast);\n    \n    slow = nums[0];\n    while (slow != fast) {\n        slow = nums[slow];\n        fast = nums[fast];\n    }\n    \n    return slow;\n}\n\n// 测试用例\n// System.out.println(findDuplicate(new int[]{1, 3, 4, 2, 2})); // 2\n```\n\n**答案：** 这里把数组下标和值的关系看成链表，利用 Floyd 判圈算法可以在 O(1) 额外空间内找到重复值。",
+      "tags": [
+        "手撕代码",
+        "Java"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "java-08",
+      "question": "无重复字符的最长子串",
+      "answer": "```java\npublic int lengthOfLongestSubstring(String s) {\n    if (s == null || s.length() == 0) return 0;\n    \n    int maxLength = 0;\n    Map<Character, Integer> map = new HashMap<>();\n    \n    for (int left = 0, right = 0; right < s.length(); right++) {\n        char currentChar = s.charAt(right);\n        \n        if (map.containsKey(currentChar)) {\n            left = Math.max(left, map.get(currentChar) + 1);\n        }\n        \n        map.put(currentChar, right);\n        maxLength = Math.max(maxLength, right - left + 1);\n    }\n    \n    return maxLength;\n}\n\n// 测试用例\n// System.out.println(lengthOfLongestSubstring(\"abcabcbb\")); // 3\n// System.out.println(lengthOfLongestSubstring(\"bbbbb\")); // 1\n```\n\n**答案：** 典型滑动窗口题，HashMap 记录字符最近一次出现的位置，窗口左边界按需跳跃更新。",
+      "tags": [
+        "手撕代码",
+        "Java"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "java-09",
+      "question": "两数之和",
+      "answer": "```java\npublic int[] twoSum(int[] nums, int target) {\n    Map<Integer, Integer> map = new HashMap<>();\n    \n    for (int i = 0; i < nums.length; i++) {\n        int complement = target - nums[i];\n        \n        if (map.containsKey(complement)) {\n            return new int[]{map.get(complement), i};\n        }\n        \n        map.put(nums[i], i);\n    }\n    \n    throw new IllegalArgumentException(\"No two sum solution\");\n}\n\n// 测试用例\n// System.out.println(Arrays.toString(twoSum(new int[]{2, 7, 11, 15}, 9))); // [0, 1]\n```\n\n**答案：** 用哈希表在一次遍历里完成查找和记录，能把时间复杂度降到 O(n)。",
+      "tags": [
+        "手撕代码",
+        "Java"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "java-10",
+      "question": "旋转数组",
+      "answer": "```java\npublic void rotate(int[] nums, int k) {\n    if (nums == null || nums.length == 0) return;\n    \n    k = k % nums.length;\n    reverse(nums, 0, nums.length - 1);\n    reverse(nums, 0, k - 1);\n    reverse(nums, k, nums.length - 1);\n}\n\nprivate void reverse(int[] nums, int start, int end) {\n    while (start < end) {\n        int temp = nums[start];\n        nums[start] = nums[end];\n        nums[end] = temp;\n        start++;\n        end--;\n    }\n}\n\n// 测试用例\n// int[] nums = new int[]{1, 2, 3, 4, 5, 6, 7};\n// rotate(nums, 3);\n// System.out.println(Arrays.toString(nums)); // [5, 6, 7, 1, 2, 3, 4]\n```\n\n**答案：** 三次反转是最经典的原地旋转做法，空间复杂度 O(1)。",
+      "tags": [
+        "手撕代码",
+        "Java"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "java-11",
+      "question": "验证括号有效性",
+      "answer": "```java\npublic boolean isValid(String s) {\n    if (s == null || s.length() % 2 != 0) return false;\n    \n    Stack<Character> stack = new Stack<>();\n    \n    for (char c : s.toCharArray()) {\n        if (c == '(') {\n            stack.push(')');\n        } else if (c == '[') {\n            stack.push(']');\n        } else if (c == '{') {\n            stack.push('}');\n        } else if (stack.isEmpty() || stack.pop() != c) {\n            return false;\n        }\n    }\n    \n    return stack.isEmpty();\n}\n\n// 测试用例\n// System.out.println(isValid(\"()[]{}\")); // true\n// System.out.println(isValid(\"([)]\")); // false\n```\n\n**答案：** 栈结构天然适合处理“最近未匹配元素”，遇到左括号压入期望的右括号，遇到右括号就比对弹出。",
+      "tags": [
+        "手撕代码",
+        "Java"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "java-12",
+      "question": "寻找数组中的峰值",
+      "answer": "```java\npublic int findPeakElement(int[] nums) {\n    int left = 0, right = nums.length - 1;\n    \n    while (left < right) {\n        int mid = left + (right - left) / 2;\n        \n        if (nums[mid] < nums[mid + 1]) {\n            left = mid + 1;\n        } else {\n            right = mid;\n        }\n    }\n    \n    return left;\n}\n\n// 测试用例\n// System.out.println(findPeakElement(new int[]{1, 2, 3, 1})); // 2\n```\n\n**答案：** 通过比较 mid 和 mid+1，可以判断峰值落在哪一侧，因此这题可以用二分查找优化到 O(log n)。",
+      "tags": [
+        "手撕代码",
+        "Java"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "java-13",
+      "question": "最长公共前缀",
+      "answer": "```java\npublic String longestCommonPrefix(String[] strs) {\n    if (strs == null || strs.length == 0) return \"\";\n    \n    String prefix = strs[0];\n    \n    for (int i = 1; i < strs.length; i++) {\n        while (strs[i].indexOf(prefix) != 0) {\n            prefix = prefix.substring(0, prefix.length() - 1);\n            if (prefix.isEmpty()) return \"\";\n        }\n    }\n    \n    return prefix;\n}\n\n// 测试用例\n// System.out.println(longestCommonPrefix(new String[]{\"flower\", \"flow\", \"flight\"})); // \"fl\"\n```\n\n**答案：** 先把第一个字符串当成候选前缀，再不断收缩，直到它成为所有字符串的公共前缀。",
+      "tags": [
+        "手撕代码",
+        "Java"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "java-14",
+      "question": "移动零到数组末尾",
+      "answer": "```java\npublic void moveZeroes(int[] nums) {\n    if (nums == null || nums.length == 0) return;\n    \n    int nonZeroIndex = 0;\n    \n    for (int i = 0; i < nums.length; i++) {\n        if (nums[i] != 0) {\n            nums[nonZeroIndex++] = nums[i];\n        }\n    }\n    \n    for (int i = nonZeroIndex; i < nums.length; i++) {\n        nums[i] = 0;\n    }\n}\n\n// 测试用例\n// int[] nums = new int[]{0, 1, 0, 3, 12};\n// moveZeroes(nums);\n// System.out.println(Arrays.toString(nums)); // [1, 3, 12, 0, 0]\n```\n\n**答案：** 双指针思想：先把非零元素稳定前移，再把后面的空位补零。",
+      "tags": [
+        "手撕代码",
+        "Java"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "java-15",
+      "question": "字符串的排列检查",
+      "answer": "```java\npublic boolean checkInclusion(String s1, String s2) {\n    if (s1.length() > s2.length()) return false;\n    \n    int[] s1Count = new int[26];\n    int[] s2Count = new int[26];\n    \n    for (int i = 0; i < s1.length(); i++) {\n        s1Count[s1.charAt(i) - 'a']++;\n        s2Count[s2.charAt(i) - 'a']++;\n    }\n    \n    for (int i = 0; i < s2.length() - s1.length(); i++) {\n        if (matches(s1Count, s2Count)) return true;\n        \n        s2Count[s2.charAt(i) - 'a']--;\n        s2Count[s2.charAt(i + s1.length()) - 'a']++;\n    }\n    \n    return matches(s1Count, s2Count);\n}\n\nprivate boolean matches(int[] s1Count, int[] s2Count) {\n    for (int i = 0; i < 26; i++) {\n        if (s1Count[i] != s2Count[i]) return false;\n    }\n    return true;\n}\n\n// 测试用例\n// System.out.println(checkInclusion(\"ab\", \"eidbaooo\")); // true\n// System.out.println(checkInclusion(\"ab\", \"eidboaoo\")); // false\n```\n\n**答案：** 固定长度滑动窗口配合字符计数数组，是这题最常见的实现方式。",
+      "tags": [
+        "手撕代码",
+        "Java"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "java-16",
+      "question": "最大子数组和",
+      "answer": "```java\npublic int maxSubArray(int[] nums) {\n    if (nums == null || nums.length == 0) return 0;\n    \n    int maxSoFar = nums[0];\n    int maxEndingHere = nums[0];\n    \n    for (int i = 1; i < nums.length; i++) {\n        maxEndingHere = Math.max(nums[i], maxEndingHere + nums[i]);\n        maxSoFar = Math.max(maxSoFar, maxEndingHere);\n    }\n    \n    return maxSoFar;\n}\n\n// 测试用例\n// System.out.println(maxSubArray(new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4})); // 6\n```\n\n**答案：** 这是经典的 Kadane 算法，核心是判断“当前子数组要不要继续累加”。",
+      "tags": [
+        "手撕代码",
+        "Java"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "java-17",
+      "question": "寻找旋转排序数组中的最小值",
+      "answer": "```java\npublic int findMin(int[] nums) {\n    int left = 0, right = nums.length - 1;\n    \n    while (left < right) {\n        int mid = left + (right - left) / 2;\n        \n        if (nums[mid] > nums[right]) {\n            left = mid + 1;\n        } else {\n            right = mid;\n        }\n    }\n    \n    return nums[left];\n}\n\n// 测试用例\n// System.out.println(findMin(new int[]{3, 4, 5, 1, 2})); // 1\n```\n\n**答案：** 利用旋转有序数组的一侧单调性，用二分法快速缩小范围。",
+      "tags": [
+        "手撕代码",
+        "Java"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "java-18",
+      "question": "有效的字母异位词",
+      "answer": "```java\npublic boolean isAnagram(String s, String t) {\n    if (s.length() != t.length()) return false;\n    \n    int[] counter = new int[26];\n    \n    for (int i = 0; i < s.length(); i++) {\n        counter[s.charAt(i) - 'a']++;\n        counter[t.charAt(i) - 'a']--;\n    }\n    \n    for (int count : counter) {\n        if (count != 0) return false;\n    }\n    \n    return true;\n}\n\n// 测试用例\n// System.out.println(isAnagram(\"anagram\", \"nagaram\")); // true\n// System.out.println(isAnagram(\"rat\", \"car\")); // false\n```\n\n**答案：** 如果字符频次完全一致，就是异位词；用长度固定的计数数组比排序更高效。",
+      "tags": [
+        "手撕代码",
+        "Java"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "java-19",
+      "question": "矩阵置零",
+      "answer": "```java\npublic void setZeroes(int[][] matrix) {\n    if (matrix == null || matrix.length == 0) return;\n    \n    boolean firstRowZero = false;\n    boolean firstColZero = false;\n    \n    for (int j = 0; j < matrix[0].length; j++) {\n        if (matrix[0][j] == 0) {\n            firstRowZero = true;\n            break;\n        }\n    }\n    \n    for (int i = 0; i < matrix.length; i++) {\n        if (matrix[i][0] == 0) {\n            firstColZero = true;\n            break;\n        }\n    }\n    \n    for (int i = 1; i < matrix.length; i++) {\n        for (int j = 1; j < matrix[0].length; j++) {\n            if (matrix[i][j] == 0) {\n                matrix[i][0] = 0;\n                matrix[0][j] = 0;\n            }\n        }\n    }\n    \n    for (int i = 1; i < matrix.length; i++) {\n        for (int j = 1; j < matrix[0].length; j++) {\n            if (matrix[i][0] == 0 || matrix[0][j] == 0) {\n                matrix[i][j] = 0;\n            }\n        }\n    }\n    \n    if (firstRowZero) {\n        for (int j = 0; j < matrix[0].length; j++) {\n            matrix[0][j] = 0;\n        }\n    }\n    \n    if (firstColZero) {\n        for (int i = 0; i < matrix.length; i++) {\n            matrix[i][0] = 0;\n        }\n    }\n}\n\n// 测试用例\n// int[][] matrix = {{1, 1, 1}, {1, 0, 1}, {1, 1, 1}};\n// setZeroes(matrix);\n// System.out.println(Arrays.deepToString(matrix)); // [[1, 0, 1], [0, 0, 0], [1, 0, 1]]\n```\n\n**答案：** 用第一行和第一列做标记位，可以把额外空间压到 O(1)，这是这题的亮点。",
+      "tags": [
+        "手撕代码",
+        "Java"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "java-20",
+      "question": "字符串相乘",
+      "answer": "```java\npublic String multiply(String num1, String num2) {\n    if (num1.equals(\"0\") || num2.equals(\"0\")) return \"0\";\n    \n    int m = num1.length(), n = num2.length();\n    int[] result = new int[m + n];\n    \n    for (int i = m - 1; i >= 0; i--) {\n        for (int j = n - 1; j >= 0; j--) {\n            int product = (num1.charAt(i) - '0') * (num2.charAt(j) - '0');\n            int sum = product + result[i + j + 1];\n            \n            result[i + j + 1] = sum % 10;\n            result[i + j] += sum / 10;\n        }\n    }\n    \n    StringBuilder sb = new StringBuilder();\n    for (int digit : result) {\n        if (!(sb.length() == 0 && digit == 0)) {\n            sb.append(digit);\n        }\n    }\n    \n    return sb.length() == 0 ? \"0\" : sb.toString();\n}\n\n// 测试用例\n// System.out.println(multiply(\"2\", \"3\")); // \"6\"\n// System.out.println(multiply(\"123\", \"456\")); // \"56088\"\n```\n\n**答案：** 按手算乘法的思路，把每一位乘积累加到结果数组里，再统一处理进位。",
+      "tags": [
+        "手撕代码",
+        "Java"
+      ],
+      "difficulty": "intermediate"
+    }
+  ]
+}

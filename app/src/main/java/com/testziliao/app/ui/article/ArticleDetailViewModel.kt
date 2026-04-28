@@ -34,7 +34,7 @@ class ArticleDetailViewModel(
             if (article == null) {
                 _uiState.value = ArticleDetailUiState(
                     isLoading = false,
-                    message = "文章不存�?
+                    message = "文章不存在或尚未同步。"
                 )
                 return@launch
             }
@@ -72,7 +72,7 @@ class ArticleDetailViewModel(
             }.onFailure {
                 _uiState.value = _uiState.value.copy(
                     isLoading = false,
-                    message = it.message ?: "正文加载失败"
+                    message = it.message ?: "姝ｆ枃鍔犺浇澶辫触"
                 )
             }
         }

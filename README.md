@@ -18,6 +18,8 @@
 - `APP_NAMESPACE`
 - `APP_APPLICATION_ID`
 - `APP_DISPLAY_NAME`
+- `APP_VERSION_CODE`
+- `APP_VERSION_NAME`
 - `CONTENT_BASE_URL`
 
 默认值：
@@ -26,8 +28,21 @@
 APP_NAMESPACE=com.testziliao.app
 APP_APPLICATION_ID=com.testziliao.app
 APP_DISPLAY_NAME=测试资料库
+APP_VERSION_CODE=1
+APP_VERSION_NAME=1.0
 CONTENT_BASE_URL=https://example.com/
 ```
+
+可选的 release 签名参数：
+
+```properties
+SIGNING_STORE_FILE=C:\\path\\to\\release.keystore
+SIGNING_STORE_PASSWORD=your-store-password
+SIGNING_KEY_ALIAS=your-key-alias
+SIGNING_KEY_PASSWORD=your-key-password
+```
+
+如果不提供这些参数，`assembleRelease` 会继续输出 `app-release-unsigned.apk`。
 
 ## 本地运行
 

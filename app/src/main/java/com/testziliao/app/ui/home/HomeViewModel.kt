@@ -55,7 +55,7 @@ class HomeViewModel(
                     it.copy(
                         isRefreshing = false,
                         lastRefreshAt = System.currentTimeMillis(),
-                        message = "内容已更�?
+                        message = "内容已更新。"
                     )
                 }
             }.onFailure {

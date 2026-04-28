@@ -1,0 +1,1006 @@
+{
+  "id": "database-interview",
+  "title": "数据库面试题",
+  "questions": [
+    {
+      "id": "database-001",
+      "question": "什么是数据库、DBMS和SQL？它们之间有什么关系？",
+      "answer": "数据库 (Database): 一个存储有组织的数据的集合，通常以电子形式存储。\n\nDBMS (数据库管理系统): 一种用于创建和管理数据库的软件，如 MySQL, Oracle, SQL Server。它为用户提供了操作和定义数据的接口。\n\nSQL (结构化查询语言): 一种专门用来与数据库通信的语言，用于执行各种操作，如查询、更新、管理数据库。\n\n关系: 用户使用 SQL 通过 DBMS 来访问和操作 数据库 中的数据。",
+      "tags": [
+        "数据库面试题",
+        "数据库理论基础"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "database-002",
+      "question": "SQL语言主要分为哪几类？",
+      "answer": "SQL语言主要分为以下四类：\n\n\n\nDDL (数据定义语言): 用于定义或改变数据库结构。如 CREATE, ALTER, DROP, TRUNCATE。\n\nDML (数据操作语言): 用于对数据库中的数据进行增删改查。如 SELECT, INSERT, UPDATE, DELETE。\n\nDCL (数据控制语言): 用于控制数据库的访问权限。如 GRANT, REVOKE。\n\nTCL (事务控制语言): 用于管理数据库中的事务。如 COMMIT, ROLLBACK, SAVEPOINT。",
+      "tags": [
+        "数据库面试题",
+        "数据库理论基础"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "database-003",
+      "question": "CHAR 和 VARCHAR 数据类型有什么区别？",
+      "answer": "CHAR:\n\n固定长度字符串。\n\n如果存入的字符串长度小于定义的长度，会用空格填充到指定长度。\n\n存取速度比VARCHAR快，但可能会浪费空间。\n\nVARCHAR:\n\n可变长度字符串。\n\n只占用实际字符串长度+1（或+2）个字节的空间。\n\n节省空间，但存取速度稍慢。",
+      "tags": [
+        "数据库面试题",
+        "数据库理论基础"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "database-004",
+      "question": "DELETE、TRUNCATE 和 DROP 有什么区别？",
+      "answer": "命令    类型    范围    可否回滚    是否重置自增ID\n\n```sql\nDELETE    DML    删除表中部分或全部数据    可回滚    否\nTRUNCATE    DDL    删除表中全部数据    不可回滚    是\nDROP    DDL    删除整个表（结构和数据）    不可回滚    -\n```",
+      "tags": [
+        "数据库面试题",
+        "数据库理论基础"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "database-005",
+      "question": "WHERE 和 HAVING 子句的区别是什么？",
+      "answer": "```sql\nWHERE:\n```\n\n在分组前过滤数据。\n\n不能使用聚合函数（如 SUM, AVG）。\n\n```sql\nHAVING:\n```\n\n在分组后过滤数据。\n\n通常与 GROUP BY 一起使用，并且可以使用聚合函数。",
+      "tags": [
+        "数据库面试题",
+        "数据库理论基础"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "database-006",
+      "question": "INNER JOIN 和 OUTER JOIN 的区别？",
+      "answer": "```sql\nINNER JOIN (内连接): 返回两个表中连接字段匹配的记录（交集）。\n```\n\nOUTER JOIN (外连接):\n\n```sql\nLEFT JOIN: 返回左表的所有记录，以及右表中连接字段匹配的记录。\nRIGHT JOIN: 返回右表的所有记录，以及左表中连接字段匹配的记录。\nFULL JOIN: 只要其中一个表有匹配就返回记录（并集）。\n```",
+      "tags": [
+        "数据库面试题",
+        "数据库理论基础"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "database-007",
+      "question": "如何查询表中存在重复值的记录？",
+      "answer": "可以使用 GROUP BY 和 HAVING 子句来实现。\n\n\n\n```sql\nSELECT column_name, COUNT(*)\nFROM table_name\nGROUP BY column_name\nHAVING COUNT(*) > 1;\n```",
+      "tags": [
+        "数据库面试题",
+        "数据库理论基础"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "database-008",
+      "question": "如何从数据库中随机获取N条记录？",
+      "answer": "不同数据库的实现方式不同：\n\n\n\nMySQL: SELECT * FROM table_name ORDER BY RAND() LIMIT N;\n\nSQL Server: SELECT TOP N * FROM table_name ORDER BY NEWID();\n\nOracle: SELECT * FROM (SELECT * FROM table_name ORDER BY DBMS_RANDOM.VALUE) WHERE ROWNUM <= N;",
+      "tags": [
+        "数据库面试题",
+        "数据库理论基础"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "database-009",
+      "question": "什么是子查询？有哪些类型？",
+      "answer": "子查询是嵌套在另一个查询（主查询）中的查询。\n\n\n\n标量子查询: 返回单一值的子查询。\n\n行子查询: 返回单行多列的子查询。\n\n列子查询: 返回单列多行的子查询（常用 IN, ANY, ALL 操作符）。\n\n表子查询: 返回一个虚拟表，通常用在 FROM 子句中。",
+      "tags": [
+        "数据库面试题",
+        "数据库理论基础"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "database-010",
+      "question": "UNION 和 UNION ALL 有什么区别？",
+      "answer": "UNION: 合并两个查询的结果集，并去除重复行，同时进行默认排序。性能较低。\n\nUNION ALL: 合并两个查询的结果集，包含所有行，包括重复行，不进行排序。效率高于 UNION，因为少了去重和排序的开销。",
+      "tags": [
+        "数据库面试题",
+        "数据库理论基础"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "database-011",
+      "question": "什么是数据库事务？它的ACID属性是什么？",
+      "answer": "事务是作为单个逻辑工作单元执行的一系列操作，要么全部成功，要么全部失败。\n\n\n\nA (原子性): 事务是一个不可分割的工作单位。\n\nC (一致性): 事务必须使数据库从一个一致性状态变换到另一个一致性状态。\n\nI (隔离性): 多个事务并发执行时，一个事务的执行不应影响其他事务。\n\nD (持久性): 一旦事务被提交，它对数据的改变就是永久性的。",
+      "tags": [
+        "数据库面试题",
+        "数据库理论基础"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "database-012",
+      "question": "事务的隔离级别有哪些？分别解决了哪些并发问题？",
+      "answer": "读未提交 (Read Uncommitted): 解决不了任何并发问题（可能发生脏读、不可重复读、幻读）。\n\n读已提交 (Read Committed): 解决脏读。\n\n可重复读 (Repeatable Read): 解决脏读和不可重复读。\n\n串行化 (Serializable): 解决所有并发问题，但性能最低。",
+      "tags": [
+        "数据库面试题",
+        "数据库理论基础"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "database-013",
+      "question": "什么是脏读、不可重复读和幻读？",
+      "answer": "脏读 (Dirty Read): 一个事务读到了另一个事务未提交的数据。\n\n不可重复读 (Non-repeatable Read): 一个事务内多次读取同一数据，但由于另一个事务的修改和提交，导致读取结果不一致。\n\n幻读 (Phantom Read): 一个事务内多次查询同一范围的数据，但由于另一个事务的插入和提交，导致返回了之前没有的行，像产生了幻觉。",
+      "tags": [
+        "数据库面试题",
+        "数据库理论基础"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "database-014",
+      "question": "什么是索引？它的作用和优缺点是什么？",
+      "answer": "索引是帮助数据库高效获取数据的数据结构（如B树、哈希表）。\n\n\n\n优点: 大大加快数据的检索速度（类似于书的目录）。\n\n缺点:\n\n需要占用额外的存储空间。\n\n会降低数据增、删、改的速度（因为索引也需要维护）。",
+      "tags": [
+        "数据库面试题",
+        "数据库理论基础"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "database-015",
+      "question": "哪些字段适合创建索引？",
+      "answer": "主键和外键字段。\n\n经常出现在 WHERE 子句、JOIN 条件中的字段。\n\n经常需要排序 (ORDER BY) 和分组 (GROUP BY) 的字段。",
+      "tags": [
+        "数据库面试题",
+        "数据库理论基础"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "database-016",
+      "question": "索引是不是越多越好？为什么？",
+      "answer": "不是。\n\n\n\n空间开销: 索引会占用磁盘空间。\n\n性能开销: 会降低 INSERT, UPDATE, DELETE 等DML操作的速度，因为数据库需要同时维护数据和索引。需要根据实际查询需求在查询速度和修改速度之间取得平衡。",
+      "tags": [
+        "数据库面试题",
+        "数据库理论基础"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "database-017",
+      "question": "什么是聚簇索引和非聚簇索引？",
+      "answer": "聚簇索引 (Clustered Index): 决定了表中数据的物理存储顺序。一张表只能有一个聚簇索引（通常是主键）。\n\n非聚簇索引 (Non-Clustered Index): 索引的逻辑顺序与磁盘上数据的物理存储顺序不同。索引中存储的是指向数据行的指针（ row id）。一张表可以有多个非聚簇索引。",
+      "tags": [
+        "数据库面试题",
+        "数据库理论基础"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "database-018",
+      "question": "如何判断一条SQL查询是否使用了索引？",
+      "answer": "使用 EXPLAIN 命令分析SQL语句的执行计划。\n\n\n\nMySQL: EXPLAIN SELECT * FROM table WHERE ...;\n\n查看结果中的 key 字段，如果显示了索引名称，则表示使用了索引。同时可以查看 type 字段，ref 或 range 通常比 ALL（全表扫描）好。",
+      "tags": [
+        "数据库面试题",
+        "数据库理论基础"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "database-019",
+      "question": "什么是数据库范式？",
+      "answer": "范式是设计关系数据库时，需要遵循的规范和要求，目的是减少数据冗余，提高数据一致性。\n\n\n\n第一范式 (1NF): 确保每列都是原子的，不可再分。\n\n第二范式 (2NF): 首先满足1NF，并且非主键列必须完全依赖于整个主键，而不是部分主键（针对复合主键）。\n\n第三范式 (3NF): 首先满足2NF，并且非主键列之间不能有传递依赖，即必须直接依赖于主键。",
+      "tags": [
+        "数据库面试题",
+        "数据库理论基础"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "database-020",
+      "question": "什么是数据库的死锁？如何避免？",
+      "answer": "死锁是指两个或多个事务在执行过程中，因争夺资源而造成的一种互相等待的现象，若无外力干涉都无法继续执行。\n\n\n\n避免方法:\n\n以相同的顺序访问表。\n\n减小事务的大小和持续时间，尽快提交或回滚。\n\n使用较低的隔离级别（如读已提交）。\n\n在应用程序中重试因死锁失败的事务。",
+      "tags": [
+        "数据库面试题",
+        "数据库理论基础"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "database-021",
+      "question": "主键和外键的作用是什么？",
+      "answer": "主键 (Primary Key): 唯一标识表中的一条记录。不能为空，且必须唯一。\n\n外键 (Foreign Key): 建立两个表之间的关联，它引用另一个表的主键。用于保证数据的参照完整性，防止存在无效的引用。",
+      "tags": [
+        "数据库面试题",
+        "数据库理论基础"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "database-022",
+      "question": "什么是存储过程？它有什么优缺点？",
+      "answer": "存储过程是一组为了完成特定功能的SQL语句集，经编译后存储在数据库中。\n\n\n\n优点:\n\n执行效率高: 预编译，减少了解析和优化开销。\n\n减少网络流量: 只需传递过程名和参数，而不是大量SQL代码。\n\n提高安全性: 可以授权用户执行存储过程而非直接操作表。\n\n缺点:\n\n调试复杂: 不如应用程序代码方便调试。\n\n移植性差: 严重依赖特定的数据库系统。\n\n难以维护: 业务逻辑分散在应用层和数据库层。",
+      "tags": [
+        "数据库面试题",
+        "数据库理论基础"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "database-023",
+      "question": "什么是触发器？它的作用是什么？",
+      "answer": "触发器是一种特殊的存储过程，它在特定的数据库活动（INSERT, UPDATE, DELETE）发生之前或之后自动执行。\n\n\n\n作用:\n\n实现复杂的业务规则和数据完整性约束。\n\n用于审计（Auditing），记录数据变更日志。\n\n自动派生或计算字段值。",
+      "tags": [
+        "数据库面试题",
+        "数据库理论基础"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "database-024",
+      "question": "从测试角度，如何测试存储过程和触发器？",
+      "answer": "存储过程测试:\n\n验证输入参数和输出参数（或结果集）的正确性。\n\n验证各种边界条件、异常输入和分支路径。\n\n验证其实现的业务逻辑是否符合预期。\n\n触发器测试:\n\n验证定义的触发事件（INSERT/UPDATE/DELETE）是否真的能激活触发器。\n\n验证触发器执行后，数据的状态是否正确（即触发器中的逻辑是否正确）。\n\n测试触发器对性能的影响。",
+      "tags": [
+        "数据库面试题",
+        "数据库理论基础"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "database-025",
+      "question": "如何备份和恢复数据库？",
+      "answer": "备份类型:\n\n完全备份: 备份整个数据库。\n\n差异备份: 备份自上次完全备份以来发生变化的数据。\n\n事务日志备份: 备份事务日志，用于恢复到某个时间点。\n\n工具: 使用DBMS自带工具（如MySQL的 mysqldump, mysqlbackup；SQL Server的SSMS备份功能）或第三方工具。\n\n测试角色: 测试工程师可能需要验证备份恢复流程的有效性和恢复后数据的完整性。",
+      "tags": [
+        "数据库面试题",
+        "数据库理论基础"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "database-026",
+      "question": "作为测试工程师，你在进行数据库测试时主要关注哪些方面？",
+      "answer": "数据完整性: 主键、外键、唯一约束、非空约束等是否生效。\n\n数据准确性: CRUD操作后，数据是否正确存储和更新。\n\n业务规则验证: 存储过程、触发器、函数中的复杂逻辑是否正确。\n\n性能: SQL查询效率、索引有效性、是否存在死锁或慢查询。\n\n安全性: 权限控制是否到位、是否存在SQL注入漏洞。\n\n并发性: 多用户同时操作数据时，是否会出现数据不一致。",
+      "tags": [
+        "数据库面试题",
+        "数据库理论基础"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "database-027",
+      "question": "如何设计测试用例来验证数据库的完整性？",
+      "answer": "实体完整性:\n\n尝试插入重复主键的记录，预期失败。\n\n尝试插入空主键的记录，预期失败。\n\n参照完整性:\n\n尝试删除主表中被其他表外键引用的记录，预期失败（或测试级联删除/置空是否生效）。\n\n尝试在子表中插入不存在于主表的外键值，预期失败。\n\n域完整性:\n\n尝试插入不符合字段定义的数据（如超长字符串、错误数据类型、违反CHECK约束的值），预期失败。",
+      "tags": [
+        "数据库面试题",
+        "数据库理论基础"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "database-028",
+      "question": "什么是SQL注入？如何在测试中发现它？",
+      "answer": "SQL注入是一种将恶意SQL代码插入到输入参数中，欺骗服务器执行恶意命令的攻击方式。\n\n\n\n测试方法 (黑盒):\n\n在所有输入框、URL参数、Cookie等处，尝试输入特殊字符和SQL语句片段。\n\n常用测试payload: ' OR '1'='1， \" OR 1=1 --, '; DROP TABLE users; --。\n\n观察应用是否报出数据库错误信息、页面显示结果是否异常、是否执行了非预期操作。",
+      "tags": [
+        "数据库面试题",
+        "数据库理论基础"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "database-029",
+      "question": "如何测试数据库的性能？",
+      "answer": "工具: 使用性能测试工具（如 JMeter, LoadRunner）模拟多用户并发操作。\n\n指标监控: 监控数据库服务器的CPU使用率、内存使用率、磁盘I/O、网络流量、连接数。\n\n分析慢查询: 启用慢查询日志，使用 EXPLAIN 分析慢查询语句，找出性能瓶颈（如全表扫描）。\n\n基准测试 (Benchmarking): 在不同负载下测试系统的吞吐量和响应时间。",
+      "tags": [
+        "数据库面试题",
+        "数据库理论基础"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "database-030",
+      "question": "你如何验证一个前端操作是否成功写入了数据库？",
+      "answer": "直接查询数据库是最可靠的方法。\n\n\n\n在前端执行新增、修改或删除操作。\n\n使用SQL客户端工具（如MySQL Workbench, Navicat）或命令行直接连接数据库。\n\n编写SQL查询语句（SELECT）检查相关表的数据是否按业务预期发生了变化。\n\n这种方式可以绕过前端和后端逻辑，直接验证数据的最终状态。",
+      "tags": [
+        "数据库面试题",
+        "数据库理论基础"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "database-031",
+      "question": "什么是数据迁移测试？需要注意什么？",
+      "answer": "数据迁移测试是测试将数据从一个系统/数据库迁移到另一个系统/数据库的过程。\n\n\n\n注意要点:\n\n数据准确性: 所有数据是否完整、正确地从源系统迁移到了目标系统？数据映射是否正确？\n\n数据一致性: 迁移后的数据是否满足新系统的业务规则和约束？\n\n功能验证: 迁移后，基于新数据库的应用功能是否正常工作？\n\n性能验证: 迁移过程是否在预定时间窗口内完成？迁移后新系统的性能是否达标？",
+      "tags": [
+        "数据库面试题",
+        "数据库理论基础"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "database-032",
+      "question": "如何测试数据库的并发问题？",
+      "answer": "设计多线程测试用例来模拟并发场景。\n\n\n\n场景设计: 如模拟多个用户同时抢购同一件商品（测试库存超卖）、同时修改同一用户的个人信息。\n\n工具: 使用JMeter等工具创建多个线程（用户）在同一时刻执行相关操作。\n\n验证:\n\n最终的数据结果是否正确（如库存最终不能为负数）。\n\n检查是否存在脏读、不可重复读、幻读等现象。\n\n监控是否会发生死锁。",
+      "tags": [
+        "数据库面试题",
+        "数据库理论基础"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "database-033",
+      "question": "遇到过慢查询吗？你是如何协助分析的？",
+      "answer": "是的，分析慢查询是测试和开发需要共同协作的任务。\n\n\n\n定位: 通过慢查询日志或APM（应用性能管理）工具定位到具体的慢SQL语句。\n\n分析: 使用 EXPLAIN 或 EXPLAIN ANALYZE 命令分析该SQL的执行计划。关注是否进行了全表扫描（type=ALL）、使用的索引是否合理、rows 字段扫描行数是否过多。\n\n建议:\n\n优化SQL: 避免使用 SELECT *，优化子查询为连接查询，避免在WHERE条件中对字段进行函数操作。\n\n增加索引: 根据 EXPLAIN 结果和查询条件，建议开发人员增加合适的索引。\n\n业务逻辑: 有时需要和产品、开发讨论，是否可以通过改变业务逻辑或数据归档来规避性能问题。",
+      "tags": [
+        "数据库面试题",
+        "数据库理论基础"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "database-034",
+      "question": "简述一下你使用过的数据库工具",
+      "answer": "（可根据自身经验调整）\n\n\n\n数据库客户端/管理工具: Navicat, DBeaver, MySQL Workbench, SQL Server Management Studio (SSMS), pgAdmin, Oracle SQL Developer.\n\n性能测试/监控工具: JMeter (模拟并发), Prometheus + Grafana (监控数据库指标), pt-query-digest (分析MySQL慢日志).\n\n命令行工具: MySQL命令行, psql (PostgreSQL命令行).\n\n测试框架集成: 在自动化测试框架（如Selenium, JUnit, pytest）中通过JDBC、ODBC或ORM框架（如MyBatis, Hibernate）连接和验证数据库。",
+      "tags": [
+        "数据库面试题",
+        "数据库理论基础"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "database-035",
+      "question": "什么是连接池？它对性能有什么影响？",
+      "answer": "连接池是负责分配、管理和释放数据库连接的技术。它预先建立一定数量的数据库连接并保存在池中，当应用程序需要时就从池中获取，用完后再放回池中，而不是频繁地创建和关闭连接。\n\n\n\n影响: 极大地提升了性能。因为建立数据库连接是一个开销很大的操作（涉及网络往返、身份验证等）。连接池避免了这种开销，实现了连接的复用。",
+      "tags": [
+        "数据库面试题",
+        "数据库理论基础"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "database-036",
+      "question": "乐观锁和悲观锁的区别？",
+      "answer": "悲观锁: 假定会发生并发冲突，在操作数据前就先上锁（如 SELECT ... FOR UPDATE），\"先取锁，再访问\"。适合写操作多的冲突严重场景。\n\n乐观锁: 假定不会发生冲突，在提交更新时才检查数据是否被修改（通常通过版本号 version 或时间戳实现），\"先访问，更新时再检查锁\"。适合读操作多的冲突较少场景，性能更好。",
+      "tags": [
+        "数据库面试题",
+        "数据库理论基础"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "database-037",
+      "question": "什么是数据库的读写分离？它解决了什么问题？",
+      "answer": "读写分离是一种数据库架构模式，通常有一个主库（Master）负责处理写操作（INSERT, UPDATE, DELETE），并异步将数据复制到一个或多个从库（Slave），从库负责处理读操作（SELECT）。\n\n\n\n解决问题:\n\n分担负载: 将读操作分散到多个从库，减轻主库压力。\n\n提高性能: 专库专用，提升读和写的性能。\n\n高可用: 如果主库故障，可以快速将一个从库提升为主库，保证系统可用性。",
+      "tags": [
+        "数据库面试题",
+        "数据库理论基础"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "database-038",
+      "question": "如何在Linux环境下连接并操作数据库？",
+      "answer": "以MySQL为例：\n\n\n\n连接数据库:\n\n```sql\nmysql -h hostname -u username -p\n```\n\n# 然后输入密码\n\n执行SQL命令: 连接成功后，会进入MySQL命令行提示符 mysql>，可以直接输入SQL语句执行。\n\n执行SQL文件:\n\n```sql\nmysql -u username -p database_name < /path/to/your/sql_file.sql\n```",
+      "tags": [
+        "数据库面试题",
+        "数据库理论基础"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "database-039",
+      "question": "作为测试工程师，你为什么认为数据库知识很重要？",
+      "answer": "精准定位Bug: 很多前端展示的Bug其根源在数据库。能直接查询数据库可以快速确定是前端逻辑错误、后端业务逻辑错误还是数据本身的问题。\n\n深度验证数据准确性: UI和API测试只能验证表层数据流，数据库测试能验证数据的最终落地状态，保证核心资产——数据的正确性和完整性。\n\n性能优化与保障: 能协助分析和定位性能瓶颈，提出更有建设性的优化建议（如索引），并对数据库相关的性能测试结果有更深的洞察。\n\n保证业务可靠性: 通过测试事务、并发、完整性约束，确保业务在复杂和高并发场景下依然稳定可靠，避免数据错乱等严重问题。\n\n安全性: 理解SQL注入原理，能更有效地进行安全测试。",
+      "tags": [
+        "数据库面试题",
+        "数据库理论基础"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "database-040",
+      "question": "什么是触发器？它的作用是什么？",
+      "answer": "触发器（Trigger）是一种特殊的存储过程，它在特定的数据库事件（INSERT, UPDATE, DELETE）发生之前或之后自动执行。它不能被直接调用，而是由数据库本身在事件发生时触发。\n\n\n\n作用:\n\n强制实施复杂的业务规则: 实现比CHECK约束更复杂的数据完整性规则。\n\n审计 (Auditing): 自动记录数据变更的历史日志（谁在什么时候修改了什么数据）。\n\n派生数据: 自动计算和更新衍生字段的值（如更新一个“最后修改时间”字段）。\n\n同步数据: 在某些情况下，用于在不同表之间同步数据。",
+      "tags": [
+        "数据库面试题",
+        "数据库理论基础"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "database-041",
+      "question": "如何查询一张表的所有数据？",
+      "answer": "使用 SELECT * FROM 表名;。例如，SELECT * FROM employees; 会返回 employees 表中的所有行和所有列。* 是通配符，代表所有列。",
+      "tags": [
+        "数据库面试题",
+        "SQL核心关键字"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-042",
+      "question": "如何查询特定的列？",
+      "answer": "在 SELECT 后指定列名，用逗号分隔。例如，SELECT first_name, last_name, email FROM employees; 只返回员工的姓名和邮箱列。",
+      "tags": [
+        "数据库面试题",
+        "SQL核心关键字"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-043",
+      "question": "如何使用 WHERE 子句过滤数据？",
+      "answer": "```sql\nWHERE 子句用于指定过滤条件。例如，SELECT * FROM employees WHERE department_id = 10; 查询部门ID为10的所有员工。WHERE salary > 50000; 查询薪资大于5万的员工。\n```",
+      "tags": [
+        "数据库面试题",
+        "SQL核心关键字"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-044",
+      "question": "如何查询满足多个条件的数据？",
+      "answer": "使用 AND 或 OR 连接多个条件。AND 表示所有条件都必须满足，OR 表示满足任一条件即可。例如，SELECT * FROM employees WHERE department_id = 10 AND salary > 50000; 查询部门10中薪资超过5万的员工。",
+      "tags": [
+        "数据库面试题",
+        "SQL核心关键字"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-045",
+      "question": "如何对查询结果排序？",
+      "answer": "使用 ORDER BY 子句。ASC 为升序（默认），DESC 为降序。例如，SELECT * FROM employees ORDER BY salary DESC; 按薪资从高到低排序。ORDER BY last_name ASC, first_name ASC; 先按姓升序排，同姓再按名升序排。",
+      "tags": [
+        "数据库面试题",
+        "SQL核心关键字"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-046",
+      "question": "如何去除查询结果中的重复行？",
+      "answer": "使用 DISTINCT 关键字。例如，SELECT DISTINCT department_id FROM employees; 返回所有不重复的部门ID列表。",
+      "tags": [
+        "数据库面试题",
+        "SQL核心关键字"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-047",
+      "question": "如何使用 LIKE 进行模糊查询？",
+      "answer": "LIKE 配合通配符 % (匹配任意多个字符) 和 _ (匹配一个字符) 使用。例如，SELECT * FROM employees WHERE last_name LIKE 'S%'; 查询姓氏以 S 开头的员工。LIKE '%son' 匹配以 \"son\" 结尾的字符串。LIKE '_a%' 匹配第二个字母是 \"a\" 的字符串。",
+      "tags": [
+        "数据库面试题",
+        "SQL核心关键字"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-048",
+      "question": "如何查询值在某个列表中的数据？",
+      "answer": "使用 IN 操作符。例如，SELECT * FROM employees WHERE department_id IN (10, 20, 30); 查询部门ID为10、20或30的员工。这比用多个 OR 更简洁。",
+      "tags": [
+        "数据库面试题",
+        "SQL核心关键字"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-049",
+      "question": "如何查询值在两个值之间的数据？",
+      "answer": "使用 BETWEEN ... AND ...。例如，SELECT * FROM employees WHERE salary BETWEEN 40000 AND 60000; 查询薪资在4万到6万之间的员工（包含边界值）。",
+      "tags": [
+        "数据库面试题",
+        "SQL核心关键字"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-050",
+      "question": "如何查询为 NULL 的值？",
+      "answer": "使用 IS NULL 或 IS NOT NULL。注意不能直接用 = NULL。例如，SELECT * FROM employees WHERE manager_id IS NULL; 查询没有经理的员工（可能是最高层管理者）。",
+      "tags": [
+        "数据库面试题",
+        "SQL核心关键字"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-051",
+      "question": "如何使用 LIMIT 限制返回的行数？",
+      "answer": "```sql\nLIMIT 子句用于限制返回的记录数。例如，SELECT * FROM employees ORDER BY salary DESC LIMIT 5; 返回薪资最高的5名员工。在一些数据库如Oracle中，使用 ROWNUM 或 FETCH FIRST n ROWS ONLY。\n```",
+      "tags": [
+        "数据库面试题",
+        "SQL核心关键字"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-052",
+      "question": "如何使用 COUNT 函数计数？",
+      "answer": "```sql\nCOUNT() 是聚合函数，用于统计行数。COUNT(*) 统计所有行数，COUNT(column_name) 统计该列非NULL值的行数。例如，SELECT COUNT(*) FROM employees; 返回员工总人数。SELECT COUNT(manager_id) FROM employees; 返回有经理的员工数量（manager_id为NULL的不计入）。\n```",
+      "tags": [
+        "数据库面试题",
+        "SQL核心关键字"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-053",
+      "question": "还有哪些常用的聚合函数？",
+      "answer": "除了 COUNT，还有：\n\n\n\n```sql\nSUM(column_name): 对某列的数值求和。\nAVG(column_name): 对某列的数值求平均值。\nMAX(column_name): 找出某列的最大值。\nMIN(column_name): 找出某列的最小值。 例如，SELECT AVG(salary) FROM employees WHERE department_id = 10; 计算部门10的平均薪资。\n```",
+      "tags": [
+        "数据库面试题",
+        "SQL核心关键字"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-054",
+      "question": "如何使用 GROUP BY 对数据进行分组？",
+      "answer": "```sql\nGROUP BY 将数据按指定列分组，通常与聚合函数一起使用。例如，SELECT department_id, AVG(salary) FROM employees GROUP BY department_id; 计算每个部门的平均薪资。\n```",
+      "tags": [
+        "数据库面试题",
+        "SQL核心关键字"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-055",
+      "question": "如何过滤分组后的数据？",
+      "answer": "使用 HAVING 子句，而不是 WHERE。WHERE 在分组前过滤行，HAVING 在分组后过滤分组。例如，SELECT department_id, AVG(salary) FROM employees GROUP BY department_id HAVING AVG(salary) > 50000; 只显示平均薪资大于5万的部门。",
+      "tags": [
+        "数据库面试题",
+        "SQL核心关键字"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-056",
+      "question": "表连接 INNER JOIN 有什么用？",
+      "answer": "```sql\nINNER JOIN 用于连接两个表，返回两个表中连接字段匹配的记录（交集）。例如，SELECT e.last_name, d.department_name FROM employees e INNER JOIN departments d ON e.department_id = d.department_id; 查询每个员工及其所在的部门名称。如果员工没有部门或部门没有员工，则不会出现在结果中。\n```",
+      "tags": [
+        "数据库面试题",
+        "SQL核心关键字"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-057",
+      "question": "LEFT JOIN 和 INNER JOIN 有什么区别？",
+      "answer": "```sql\nLEFT JOIN 返回左表的所有记录，即使右表中没有匹配的记录。如果右表无匹配，则右表的字段显示为NULL。例如，SELECT e.last_name, d.department_name FROM employees e LEFT JOIN departments d ON e.department_id = d.department_id; 会列出所有员工，包括那些没有分配部门的员工（其department_name为NULL）。INNER JOIN 只返回两个表都匹配的记录。\n```",
+      "tags": [
+        "数据库面试题",
+        "SQL核心关键字"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-058",
+      "question": "什么是子查询？",
+      "answer": "子查询是嵌套在另一个查询中的查询。它可以放在 SELECT, FROM, WHERE, HAVING 等子句中。例如，SELECT * FROM employees WHERE salary > (SELECT AVG(salary) FROM employees); 查询薪资高于平均薪资的员工。",
+      "tags": [
+        "数据库面试题",
+        "SQL核心关键字"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-059",
+      "question": "如何使用 EXISTS 子查询？",
+      "answer": "EXISTS 用于检查子查询是否返回任何行。如果子查询返回至少一行，则 EXISTS 结果为真。它常用于相关子查询。例如，SELECT * FROM departments d WHERE EXISTS (SELECT 1 FROM employees e WHERE e.department_id = d.department_id); 查询有员工的部门。",
+      "tags": [
+        "数据库面试题",
+        "SQL核心关键字"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-060",
+      "question": "如何插入一条新记录？",
+      "answer": "使用 INSERT INTO 语句。有两种方式：\n\n\n\n指定列名和值：INSERT INTO table_name (column1, column2) VALUES (value1, value2);\n\n为所有列插入值（需按表结构顺序）：INSERT INTO table_name VALUES (value1, value2, ...); 例如，INSERT INTO employees (first_name, last_name, email) VALUES ('John', 'Doe', 'john.doe@example.com');",
+      "tags": [
+        "数据库面试题",
+        "SQL核心关键字"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-061",
+      "question": "如何更新现有记录？",
+      "answer": "使用 UPDATE 语句，并用 WHERE 子句指定要更新哪些行。务必小心使用WHERE子句，否则会更新所有行！ 例如，UPDATE employees SET salary = 55000 WHERE employee_id = 101; 将ID为101的员工薪资改为55000。",
+      "tags": [
+        "数据库面试题",
+        "SQL核心关键字"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-062",
+      "question": "如何删除记录？",
+      "answer": "使用 DELETE FROM 语句，并用 WHERE 子句指定要删除哪些行。务必小心使用WHERE子句，否则会删除所有行！ 例如，DELETE FROM employees WHERE employee_id = 105; 删除ID为105的员工。如果要清空整个表（删除所有行），可以使用 TRUNCATE TABLE table_name;，它更快且不可回滚。",
+      "tags": [
+        "数据库面试题",
+        "SQL核心关键字"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-063",
+      "question": "DELETE、TRUNCATE 和 DROP 有什么区别？",
+      "answer": "```sql\nDELETE: DML操作，删除部分或全部数据。可以回滚，带WHERE条件，不会重置自增ID。\nTRUNCATE: DDL操作，删除全部数据。不可回滚，速度快，会重置自增ID和高水位线。\nDROP: DDL操作，删除整个表（包括表结构和数据）。不可回滚，表将不复存在。\n```",
+      "tags": [
+        "数据库面试题",
+        "SQL核心关键字"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-064",
+      "question": "如何创建一个简单的表？",
+      "answer": "使用 CREATE TABLE 语句，定义列名和数据类型。例如：\n\n\n\n```sql\nCREATE TABLE students (\n    student_id INT PRIMARY KEY,\n    first_name VARCHAR(50) NOT NULL,\n    last_name VARCHAR(50) NOT NULL,\n    enrollment_date DATE\n);\n```\n\n这条语句创建了一个有学生ID（主键）、姓名（非空）和入学日期的表。",
+      "tags": [
+        "数据库面试题",
+        "SQL核心关键字"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-065",
+      "question": "如何为表添加一列？",
+      "answer": "使用 ALTER TABLE ... ADD COLUMN 语句。例如，ALTER TABLE employees ADD COLUMN middle_name VARCHAR(50); 为员工表添加一个 middle_name 列。",
+      "tags": [
+        "数据库面试题",
+        "SQL核心关键字"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-066",
+      "question": "如何修改列的数据类型？",
+      "answer": "使用 ALTER TABLE ... ALTER COLUMN 或 MODIFY COLUMN（取决于数据库系统）。例如，在MySQL中：ALTER TABLE employees MODIFY COLUMN salary DECIMAL(10,2); 将salary列的数据类型改为带两位小数的十进制数。",
+      "tags": [
+        "数据库面试题",
+        "SQL核心关键字"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-067",
+      "question": "如何删除一列？",
+      "answer": "使用 ALTER TABLE ... DROP COLUMN 语句。例如，ALTER TABLE employees DROP COLUMN middle_name; 删除刚才添加的 middle_name 列。",
+      "tags": [
+        "数据库面试题",
+        "SQL核心关键字"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-068",
+      "question": "如何给表添加主键约束？",
+      "answer": "可以在创建表时定义，也可以用 ALTER TABLE 添加。 创建时添加：CREATE TABLE table_name (id INT PRIMARY KEY, ...); 后期添加：ALTER TABLE table_name ADD PRIMARY KEY (column_name); 例如，ALTER TABLE employees ADD PRIMARY KEY (employee_id);",
+      "tags": [
+        "数据库面试题",
+        "SQL核心关键字"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-069",
+      "question": "如何给表添加外键约束？",
+      "answer": "使用 ALTER TABLE ... ADD FOREIGN KEY。例如，ALTER TABLE employees ADD FOREIGN KEY (department_id) REFERENCES departments(department_id); 这确保了 employees 表的 department_id 值必须在 departments 表的 department_id 列中存在（参照完整性）。",
+      "tags": [
+        "数据库面试题",
+        "SQL核心关键字"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-070",
+      "question": "什么是事务？如何控制事务？",
+      "answer": "事务是将一系列数据库操作作为一个不可分割的单元执行的机制，要么全部成功，要么全部失败（ACID特性）。使用 BEGIN TRANSACTION（或 START TRANSACTION）、COMMIT（提交事务，使更改永久化）和 ROLLBACK（回滚事务，撤销所有未提交的更改）来控制。例如：\n\n\n\n```sql\nSTART TRANSACTION;\nUPDATE account SET balance = balance - 100 WHERE id = 1;\nUPDATE account SET balance = balance + 100 WHERE id = 2;\n-- 如果两条更新都成功\nCOMMIT;\n-- 如果任何一条失败\nROLLBACK;\n```",
+      "tags": [
+        "数据库面试题",
+        "SQL核心关键字"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-071",
+      "question": "什么是索引？为什么要使用它？",
+      "answer": "索引是一种帮助数据库高效获取数据的数据结构（如B树），类似于书的目录。优点是大大加快数据检索速度（SELECT查询）。缺点是占用额外存储空间，并会降低数据插入、更新和删除的速度（因为索引也需要维护）。",
+      "tags": [
+        "数据库面试题",
+        "SQL核心关键字"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-072",
+      "question": "如何创建索引？",
+      "answer": "使用 CREATE INDEX 语句。例如，CREATE INDEX idx_last_name ON employees (last_name); 在 employees 表的 last_name 列上创建了一个名为 idx_last_name 的索引，这将加速按姓氏搜索的查询。",
+      "tags": [
+        "数据库面试题",
+        "SQL核心关键字"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-073",
+      "question": "如何使用 CASE 表达式？",
+      "answer": "```sql\nCASE 用于在查询中实现条件逻辑，类似于编程中的 if-else 语句。例如：\n```\n\n\n\n```sql\nSELECT employee_id, salary,\n    CASE\n        WHEN salary < 50000 THEN 'Low'\n        WHEN salary BETWEEN 50000 AND 80000 THEN 'Medium'\n        ELSE 'High'\n    END AS salary_grade\nFROM employees;\n```\n\n这会将员工的薪资分为低、中、高三个等级并显示。",
+      "tags": [
+        "数据库面试题",
+        "SQL核心关键字"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-074",
+      "question": "如何计算两个日期之间的差值？",
+      "answer": "使用日期函数，如 DATEDIFF (MySQL) 或 (date1 - date2) (Oracle)。例如，在MySQL中：SELECT DATEDIFF('2023-12-31', '2023-01-01') AS days_diff; 计算两个日期相差的天数。",
+      "tags": [
+        "数据库面试题",
+        "SQL核心关键字"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-075",
+      "question": "如何从日期时间值中提取部分信息（如年、月）？",
+      "answer": "使用日期函数如 YEAR(), MONTH(), DAY()。例如，SELECT YEAR(order_date) AS order_year, MONTH(order_date) AS order_month FROM orders; 从订单日期中提取出年份和月份。",
+      "tags": [
+        "数据库面试题",
+        "SQL核心关键字"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-076",
+      "question": "如何将多个字符串连接起来？",
+      "answer": "使用字符串连接函数 CONCAT()。例如，SELECT CONCAT(first_name, ' ', last_name) AS full_name FROM employees; 将名字和姓氏连接成一个完整的姓名，中间用空格隔开。",
+      "tags": [
+        "数据库面试题",
+        "SQL核心关键字"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-077",
+      "question": "什么是视图？如何创建它？",
+      "answer": "视图是基于 SQL 查询结果的虚拟表。它封装了复杂的查询，可以像普通表一样被查询。使用 CREATE VIEW 语句创建。例如：\n\n\n\n```sql\nCREATE VIEW high_paid_employees AS\nSELECT first_name, last_name, salary\nFROM employees\nWHERE salary > 70000;\n```\n\n之后就可以用 SELECT * FROM high_paid_employees; 来查询这个视图。",
+      "tags": [
+        "数据库面试题",
+        "SQL核心关键字"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-078",
+      "question": "如何使用 COALESCE 函数处理 NULL 值？",
+      "answer": "COALESCE 返回参数列表中的第一个非 NULL 值。常用于为NULL值提供默认值。例如，SELECT name, COALESCE(phone, 'N/A') AS phone_number FROM customers; 如果客户的phone号为NULL，则显示 'N/A'。",
+      "tags": [
+        "数据库面试题",
+        "SQL核心关键字"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-079",
+      "question": "如何复制一张表的结构和数据？",
+      "answer": "使用 CREATE TABLE ... AS SELECT ...（不同数据库语法略有差异）。例如，CREATE TABLE employees_backup AS SELECT * FROM employees; 会创建一个名为 employees_backup 的新表，其结构和数据与原表 employees 完全相同。",
+      "tags": [
+        "数据库面试题",
+        "SQL核心关键字"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-080",
+      "question": "如何找出一个表中存在而另一个表中不存在的记录？",
+      "answer": "使用 NOT EXISTS 或 LEFT JOIN ... WHERE ... IS NULL。例如，找出没有订单的客户：\n\n\n\n```sql\n-- 使用 NOT EXISTS\nSELECT * FROM customers c\nWHERE NOT EXISTS (SELECT 1 FROM orders o WHERE o.customer_id = c.customer_id);\n```\n\n\n\n```sql\n-- 使用 LEFT JOIN\nSELECT c.*\nFROM customers c\nLEFT JOIN orders o ON c.customer_id = o.customer_id\nWHERE o.order_id IS NULL;\n```",
+      "tags": [
+        "数据库面试题",
+        "SQL核心关键字"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-081",
+      "question": "如何计算分组内的排名？",
+      "answer": "使用窗口函数 RANK() 或 ROW_NUMBER()。例如，计算每个部门内员工的薪资排名：\n\n\n\n```sql\nSELECT department_id, last_name, salary,\n       RANK() OVER (PARTITION BY department_id ORDER BY salary DESC) AS dept_salary_rank\nFROM employees;\nPARTITION BY 指定分组依据，ORDER BY 指定排名依据。\n```",
+      "tags": [
+        "数据库面试题",
+        "SQL核心关键字"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-082",
+      "question": "如何查询第N高的薪资？",
+      "answer": "使用子查询或窗口函数。例如，查询第二高的薪资（考虑并列情况）：\n\n\n\n```sql\n-- 使用子查询和 LIMIT\nSELECT DISTINCT salary\nFROM employees\nORDER BY salary DESC\nLIMIT 1 OFFSET 1;\n```\n\n\n\n```sql\n-- 使用窗口函数 (更通用)\nSELECT salary\nFROM (SELECT salary, DENSE_RANK() OVER (ORDER BY salary DESC) as rnk\n      FROM employees) t\nWHERE rnk = 2;\n```",
+      "tags": [
+        "数据库面试题",
+        "SQL核心关键字"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-083",
+      "question": "如何实现分页查询？",
+      "answer": "使用 LIMIT 和 OFFSET（或数据库特定的语法，如Oracle的ROWNUM，SQL Server的OFFSET FETCH）。例如，获取第6到第10条记录（每页5条）：\n\n\n\n```sql\nSELECT * FROM employees\nORDER BY employee_id\nLIMIT 5 OFFSET 5;\n-- LIMIT 5 表示取5条，OFFSET 5 表示跳过前5条。\n```",
+      "tags": [
+        "数据库面试题",
+        "SQL核心关键字"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-084",
+      "question": "如何统计不同条件下的数量（如数据透视）？",
+      "answer": "使用 CASE 表达式 inside SUM 或 COUNT。例如，统计每个部门中不同薪资等级的人数：\n\n\n\n```sql\nSELECT department_id,\n       COUNT(CASE WHEN salary < 50000 THEN 1 END) AS low_count,\n       COUNT(CASE WHEN salary BETWEEN 50000 AND 80000 THEN 1 END) AS medium_count,\n       COUNT(CASE WHEN salary > 80000 THEN 1 END) AS high_count\nFROM employees\nGROUP BY department_id;\nCASE 表达式为满足条件的行返回1，否则返回NULL。COUNT 忽略NULL，从而实现了按条件计数。\n```",
+      "tags": [
+        "数据库面试题",
+        "SQL核心关键字"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-085",
+      "question": "如何批量插入数据？",
+      "answer": "在 INSERT 语句的 VALUES 子句中提供多组值，用逗号分隔。例如：\n\n\n\n```sql\nINSERT INTO products (product_name, price)\nVALUES\n('Product A', 10.99),\n('Product B', 25.50),\n```\n\n('Product C', 15.00);\n\n这比执行多个单独的 INSERT 语句效率高得多。",
+      "tags": [
+        "数据库面试题",
+        "SQL核心关键字"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-086",
+      "question": "如何重命名表？",
+      "answer": "使用 RENAME TABLE 或 ALTER TABLE ... RENAME TO（语法因数据库而异）。例如，在MySQL中：RENAME TABLE old_table_name TO new_table_name; 或将表 employees 重命名为 staff：ALTER TABLE employees RENAME TO staff;",
+      "tags": [
+        "数据库面试题",
+        "SQL核心关键字"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-087",
+      "question": "如何备份一张表？",
+      "answer": "结构和数据都备份: CREATE TABLE backup_table AS SELECT * FROM original_table;\n\n仅备份结构: CREATE TABLE backup_table LIKE original_table; (MySQL语法)\n\n使用数据库管理工具提供的导出/备份功能。",
+      "tags": [
+        "数据库面试题",
+        "SQL核心关键字"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-088",
+      "question": "如何恢复/还原一张表？",
+      "answer": "如果是从备份表恢复：\n\n\n\n```sql\n-- 先清空或删除原表 (谨慎操作!)\nTRUNCATE TABLE original_table;\n-- 或 DROP TABLE original_table; 然后 CREATE TABLE original_table LIKE backup_table;\n```\n\n\n\n```sql\n-- 再将数据插回去\nINSERT INTO original_table SELECT * FROM backup_table;\n```\n\n更稳妥的方法是使用数据库的导入/恢复工具。",
+      "tags": [
+        "数据库面试题",
+        "SQL核心关键字"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-089",
+      "question": "作为测试工程师，你如何验证SQL查询结果的正确性？",
+      "answer": "手动计算验证: 对于简单的聚合查询（如COUNT, SUM），用手工计算一小部分数据的结果与SQL查询结果对比。\n\n对比不同方法: 用另一种逻辑编写SQL（如子查询 vs 连接）来验证结果是否一致。\n\n检查边界条件: 特意准备包含NULL值、极端值、重复值的测试数据，看查询是否按预期处理。\n\n理解业务规则: 确保SQL逻辑完全符合要验证的业务规则。\n\n使用已知答案的数据集: 准备一个小的、结果已知的测试数据集，运行查询看输出是否匹配预期。",
+      "tags": [
+        "数据库面试题",
+        "SQL核心关键字"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-090",
+      "question": "如何测试数据库的存储过程或函数？",
+      "answer": "准备测试数据: 准备覆盖各种场景（正常路径、边界值、异常路径）的输入数据。\n\n执行并获取结果: 在数据库客户端中直接调用存储过程/函数，传入测试参数。CALL procedure_name(param1, param2); 或 SELECT function_name(param1);\n\n验证输出:\n\n检查返回值或输出参数是否正确。\n\n检查数据库中被该过程/函数修改的数据是否正确更新。\n\n检查是否抛出了预期的异常。\n\n自动化: 如果可能，将测试用例集成到自动化测试框架中。",
+      "tags": [
+        "数据库面试题",
+        "SQL核心关键字"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-091",
+      "question": "如何查询所有员工及其所在的部门名称？",
+      "answer": "考察点： 最基本的INNER JOIN使用。 答案：\n\n\n\n```sql\nSELECT e.employee_id, e.first_name, e.last_name, d.department_name\nFROM employees e\nINNER JOIN departments d ON e.department_id = d.department_id;\n```\n\n测试视角： 需要验证结果中是否只包含有部门的员工（department_id不为NULL），并且每个员工的部门名称是否正确对应。",
+      "tags": [
+        "数据库面试题",
+        "多表SQL真题"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-092",
+      "question": "如何查询所有员工信息，包括那些还没有分配部门的员工？",
+      "answer": "考察点： LEFT JOIN的理解和使用，确保不丢失数据。 答案：\n\n\n\n```sql\nSELECT e.employee_id, e.first_name, e.last_name, d.department_name\nFROM employees e\nLEFT JOIN departments d ON e.department_id = d.department_id;\n```\n\n测试视角： 这是测试数据完整性的关键查询。需要确保结果集中包含那些department_id为NULL的员工，并且他们的department_name字段显示为NULL。",
+      "tags": [
+        "数据库面试题",
+        "多表SQL真题"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-093",
+      "question": "如何查询所有部门信息，包括那些还没有任何员工的部门？",
+      "answer": "考察点： RIGHT JOIN 或 改用 LEFT JOIN 的思路。 答案：\n\n\n\n```sql\n-- 使用 RIGHT JOIN\nSELECT d.department_name, e.employee_id, e.first_name\nFROM employees e\nRIGHT JOIN departments d ON e.department_id = d.department_id;\n```\n\n\n\n```sql\n-- 更常用的写法：使用 LEFT JOIN 并调换表顺序\nSELECT d.department_name, e.employee_id, e.first_name\nFROM departments d\nLEFT JOIN employees e ON d.department_id = e.department_id;\n```\n\n测试视角： 验证结果集中是否包含了“光杆司令”部门（没有任何员工的部门），这些部门的员工信息字段应为NULL。",
+      "tags": [
+        "数据库面试题",
+        "多表SQL真题"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-094",
+      "question": "如何查询每个员工的名字及其经理的名字？",
+      "answer": "考察点： 自连接（Self Join）的概念。员工表和经理表本质上是同一张表，需要通过不同的别名来区分。 答案：\n\n\n\n```sql\nSELECT e.employee_id,\n       e.first_name AS employee_name,\n       m.first_name AS manager_name\nFROM employees e\nLEFT JOIN employees m ON e.manager_id = m.employee_id;\n```\n\n测试视角：\n\n\n\n使用LEFT JOIN以确保最高层管理者（没有经理，manager_id为NULL）也会被查询出来，其manager_name为NULL。\n\n需要验证汇报关系是否正确，例如员工A的经理是否确实是查询出来的经理B。",
+      "tags": [
+        "数据库面试题",
+        "多表SQL真题"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-095",
+      "question": "如何查询每个部门的名称和该部门的员工人数？",
+      "answer": "考察点： LEFT JOIN 与 GROUP BY、聚合函数COUNT的结合使用。 答案：\n\n\n\n```sql\nSELECT d.department_name, COUNT(e.employee_id) AS employee_count\nFROM departments d\nLEFT JOIN employees e ON d.department_id = e.department_id\nGROUP BY d.department_name\nORDER BY employee_count DESC;\n```\n\n测试视角：\n\n\n\n重点验证那些员工数为0的部门是否也被正确统计和显示（结果为0）。\n\n验证员工数众多的部门，计数结果是否正确。这需要与直接SELECT COUNT(*) ... WHERE department_id=x的结果进行交叉验证。",
+      "tags": [
+        "数据库面试题",
+        "多表SQL真题"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-096",
+      "question": "如何查询在“上海”工作的所有员工？",
+      "answer": "考察点： 多表连接（通常需要3张表以上）。员工通过部门关联到地点。 答案： （假设存在locations表，且departments表中有location_id字段）\n\n\n\n```sql\nSELECT e.employee_id, e.first_name, e.last_name, l.city\nFROM employees e\nINNER JOIN departments d ON e.department_id = d.department_id\nINNER JOIN locations l ON d.location_id = l.location_id\nWHERE l.city = 'Shanghai';\n```\n\n测试视角： 构造测试数据时，需要覆盖边界情况，例如：一个地点有多个部门，一个部门有多个员工，以及没有员工的部门（但本例中INNER JOIN会排除它们）等，以确保查询逻辑正确。",
+      "tags": [
+        "数据库面试题",
+        "多表SQL真题"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-097",
+      "question": "如何查询薪资高于其所在部门平均薪资的员工？",
+      "answer": "考察点： 相关子查询 或 窗口函数 与 JOIN 的结合。这是一个经典的综合题型。 答案： 方法一：使用相关子查询（更直观，但性能可能不佳）\n\n\n\n```sql\nSELECT e.department_id, e.employee_id, e.salary\nFROM employees e\nWHERE e.salary > (\n    SELECT AVG(salary)\n    FROM employees\n    WHERE department_id = e.department_id -- 关联到外部查询的部门ID\n);\n```\n\n方法二：使用派生表（更高效，适合面试口述）\n\n\n\n```sql\nSELECT e.employee_id, e.salary, e.department_id, d_avg.avg_sal\nFROM employees e\nINNER JOIN (\n    SELECT department_id, AVG(salary) AS avg_sal\n    FROM employees\n    GROUP BY department_id\n) d_avg ON e.department_id = d_avg.department_id\nWHERE e.salary > d_avg.avg_sal;\n```\n\n测试视角： 这是一个复杂的验证场景。测试时需要：\n\n\n\n手动计算几个部门的平均薪资。\n\n确认查询结果中的员工薪资是否确实大于我们手动计算的平均值。\n\n特别注意部门中只有一个人或所有人的薪资都相同的情况，结果集应该为空。",
+      "tags": [
+        "数据库面试题",
+        "多表SQL真题"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-098",
+      "question": "如何查询所有没有员工的部门？",
+      "answer": "考察点： LEFT JOIN 与 WHERE ... IS NULL 的组合使用，用于查找缺失项。 答案：\n\n\n\n```sql\nSELECT d.department_id, d.department_name\nFROM departments d\nLEFT JOIN employees e ON d.department_id = e.department_id\nWHERE e.employee_id IS NULL;\n```\n\n测试视角： 这是测试参照完整性和数据质量的经典查询。需要特意准备一些没有任何员工的部门，看是否能被正确查找出来。",
+      "tags": [
+        "数据库面试题",
+        "多表SQL真题"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-099",
+      "question": "如何查询每个员工的项目参与情况？（列出所有员工和项目，没参与项目的也要显示）",
+      "answer": "考察点： 多对多关系的连接，并使用LEFT JOIN保证数据完整性。 （假设存在projects表和关联表project_assignments） 答案：\n\n\n\n```sql\nSELECT e.employee_id, e.first_name, e.last_name, p.project_name\nFROM employees e\nLEFT JOIN project_assignments pa ON e.employee_id = pa.employee_id\nLEFT JOIN projects p ON pa.project_id = p.project_id\nORDER BY e.employee_id;\n```\n\n测试视角：\n\n\n\n一个员工可能参与多个项目，会在结果中形成多行。\n\n没有参与任何项目的员工，其project_name会显示为NULL，但员工信息依然会出现一次。这是验证的重点。",
+      "tags": [
+        "数据库面试题",
+        "多表SQL真题"
+      ],
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "database-100",
+      "question": "如何查询“张三”所在部门的所有其他员工？",
+      "answer": "考察点： 子查询作为连接条件或过滤条件。 答案：\n\n\n\n```sql\nSELECT e1.*\nFROM employees e1\nINNER JOIN (\n    SELECT department_id\n    FROM employees\n    WHERE first_name = '张三' -- 假设名字不唯一，最好用唯一标识如employee_id\n) e2 ON e1.department_id = e2.department_id\nWHERE e1.first_name != '张三'; -- 排除自己\n```\n\n测试视角：\n\n\n\n需要处理重名问题：如果有多个人叫“张三”，这个查询会把所有“张三”所在部门的人都查出来。面试时可以指出这个问题，并提出用employee_id等唯一标识来改进。\n\n验证结果中确实不包含“张三”本人，并且都来自同一个部门。",
+      "tags": [
+        "数据库面试题",
+        "多表SQL真题"
+      ],
+      "difficulty": "intermediate"
+    }
+  ]
+}

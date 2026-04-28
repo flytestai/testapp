@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.testziliao.app.data.local.entity.HistoryRecordEntity
+import com.testziliao.app.data.local.entity.QuestionItemEntity
 import com.testziliao.app.data.model.AppConstants
 import com.testziliao.app.data.repository.ContentRepository
 import com.testziliao.app.data.repository.FavoriteRepository
@@ -35,7 +36,7 @@ class QuestionSetDetailViewModel(
             if (questionSet == null) {
                 _uiState.value = QuestionSetDetailUiState(
                     isLoading = false,
-                    message = "题库不存�?
+                    message = "题库不存在或尚未同步。"
                 )
                 return@launch
             }
@@ -51,7 +52,7 @@ class QuestionSetDetailViewModel(
                     targetId = questionSet.id,
                     targetType = AppConstants.TARGET_TYPE_QUESTION_SET,
                     title = questionSet.title,
-                    subtitle = "�?${questionSet.questionCount} �?,
+                    subtitle = "共 ${questionSet.questionCount} 题",
                     cover = null,
                     viewedAt = System.currentTimeMillis()
                 )
@@ -59,14 +60,23 @@ class QuestionSetDetailViewModel(
 
             val cachedItems = contentRepository.observeQuestionItems(questionSetId).first()
             if (cachedItems.isNotEmpty()) {
-                updateQuestionItems(cachedItems, selectedTag = _uiState.value.selectedTag, loading = false)
+                updateQuestionItems(
+                    source = cachedItems,
+                    selectedTag = _uiState.value.selectedTag,
+                    loading = false
+                )
             }
 
             runCatching {
                 contentRepository.refreshQuestionSetDetail(questionSetId)
                 contentRepository.observeQuestionItems(questionSetId).first()
             }.onSuccess { latest ->
-                updateQuestionItems(latest, selectedTag = _uiState.value.selectedTag, loading = false, message = null)
+                updateQuestionItems(
+                    source = latest,
+                    selectedTag = _uiState.value.selectedTag,
+                    loading = false,
+                    message = null
+                )
             }.onFailure {
                 _uiState.value = _uiState.value.copy(
                     isLoading = false,
@@ -82,6 +92,26 @@ class QuestionSetDetailViewModel(
             selectedTag = tag,
             loading = false,
             message = _uiState.value.message
+        )
+    }
+
+    fun goToPrevious() {
+        val state = _uiState.value
+        if (!state.canGoPrevious) return
+        val nextIndex = state.currentIndex - 1
+        _uiState.value = state.copy(
+            currentIndex = nextIndex,
+            currentItem = state.items.getOrNull(nextIndex)
+        )
+    }
+
+    fun goToNext() {
+        val state = _uiState.value
+        if (!state.canGoNext) return
+        val nextIndex = state.currentIndex + 1
+        _uiState.value = state.copy(
+            currentIndex = nextIndex,
+            currentItem = state.items.getOrNull(nextIndex)
         )
     }
 
@@ -111,11 +141,21 @@ class QuestionSetDetailViewModel(
             source.filter { parseTags(it.tags).contains(selectedTag) }
         }
 
+        val previousItemId = _uiState.value.currentItem?.id
+        val restoredIndex = filteredItems.indexOfFirst { it.id == previousItemId }
+        val currentIndex = when {
+            filteredItems.isEmpty() -> 0
+            restoredIndex >= 0 -> restoredIndex
+            else -> 0
+        }
+
         _uiState.value = _uiState.value.copy(
             allItems = source,
             items = filteredItems,
             selectedTag = selectedTag,
             availableTags = tags,
+            currentIndex = currentIndex,
+            currentItem = filteredItems.getOrNull(currentIndex),
             isLoading = loading,
             message = message
         )

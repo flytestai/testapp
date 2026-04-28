@@ -1,0 +1,606 @@
+{
+  "id": "python-automation-interview",
+  "title": "Python自动化测试面试题",
+  "questions": [
+    {
+      "id": "py-auto-api-001",
+      "question": "你在项目中使用的接口自动化测试框架是什么？为什么选择它？",
+      "answer": "我常用 **Requests + Pytest + Allure** 这一套组合。\n\n- `Requests` 负责发送 HTTP 请求，语法简单，支持 Session、Cookie 和常见鉴权场景\n- `Pytest` 提供 fixture、参数化、失败重跑、并发执行等能力，适合持续集成\n- `Allure` 可以生成结构清晰的 HTML 报告，方便团队查看执行结果和历史趋势\n\n这套组合上手快、维护成本低，也很适合在 CI/CD 中落地。",
+      "tags": [
+        "接口自动化",
+        "高优"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-api-002",
+      "question": "请描述你设计的接口自动化测试框架的整体架构",
+      "answer": "我通常采用分层设计，核心分为五层：\n\n- **API 层**：按业务模块封装接口，例如 `user_api.py`、`order_api.py`\n- **用例层**：只关注测试逻辑，不直接写请求细节\n- **公共工具层**：封装请求、日志、断言、鉴权、签名等通用能力\n- **配置层**：使用 YAML 管理不同环境的地址、数据库、账号信息\n- **数据层**：独立管理 YAML / JSON / Excel 测试数据\n\n这样做的好处是职责清晰、修改范围可控，接口变化时通常只需要调整 API 层。",
+      "tags": [
+        "接口自动化",
+        "高优"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-api-003",
+      "question": "如何实现接口请求的二次封装？",
+      "answer": "我会封装一个统一请求工具类，集中处理请求入口、日志、异常和 Session。\n\n1. 统一封装 `GET / POST / PUT / DELETE`\n2. 请求前后自动记录 URL、参数、响应状态和响应体\n3. 捕获超时、连接错误等异常并统一处理\n4. 通过 Session 自动管理 Cookie 或 token\n\n```python\nclass RequestUtil:\n    def send_request(self, method, url, **kwargs):\n        logger.info(f\"请求: {method} {url}\")\n        response = self.session.request(method, url, **kwargs)\n        logger.info(f\"响应: {response.status_code}\")\n        return response\n```\n\n这样测试用例只关注业务逻辑，不需要重复写日志和异常处理。",
+      "tags": [
+        "接口自动化",
+        "高优"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-api-004",
+      "question": "如何设计API层实现接口的统一管理？",
+      "answer": "我会先定义一个 `BaseApi` 基类，把公共请求能力放进去，然后按业务模块定义子类。\n\n```python\nclass UserApi(BaseApi):\n    def login(self, username, password):\n        return self.send(\"POST\", \"/api/login\", json={\n            \"username\": username,\n            \"password\": password,\n        })\n\n    def get_user_info(self, user_id):\n        return self.send(\"GET\", f\"/api/users/{user_id}\")\n```\n\n接口方法语义化之后，用例层调用会非常清晰，后续接口变更也更容易维护。",
+      "tags": [
+        "接口自动化",
+        "高优"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-api-005",
+      "question": "如何实现多环境配置管理？",
+      "answer": "我会用 YAML 管理环境配置，通过 `env` 字段或环境变量切换。\n\n```yaml\nenv: test\ntest:\n  base_url: http://test-api.example.com\n  db:\n    host: test-db.example.com\n```\n\n常见做法是：默认从配置文件读取当前环境，也支持通过环境变量覆盖，例如 `TEST_ENV=dev`。这样数据库、账号、域名都不用硬编码。",
+      "tags": [
+        "接口自动化",
+        "高优"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-api-006",
+      "question": "如何实现测试数据的参数化？",
+      "answer": "我一般会结合 `pytest.mark.parametrize` 和外部数据文件来做。\n\n```python\n@pytest.mark.parametrize(\"username,password,expected\", [\n    (\"admin\", \"123456\", 0),\n    (\"admin\", \"wrong\", 1001),\n])\ndef test_login(username, password, expected):\n    response = user_api.login(username, password)\n    assert response.json()[\"code\"] == expected\n```\n\n数据量小时直接写在装饰器里，数据量大时放到 YAML / Excel / JSON 中，再由工具类读取。",
+      "tags": [
+        "接口自动化",
+        "高优"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-api-007",
+      "question": "如何实现统一的断言机制？",
+      "answer": "我会封装统一断言工具，至少覆盖四类能力：状态码断言、JSON 字段值断言、字段存在性断言、响应时间断言。\n\n```python\nclass AssertUtil:\n    @staticmethod\n    def assert_code(response, expected_code):\n        assert response.status_code == expected_code\n\n    @staticmethod\n    def assert_json_value(actual, expected):\n        assert actual == expected\n```\n\n统一断言后，日志输出格式一致，失败信息也更容易定位。",
+      "tags": [
+        "接口自动化",
+        "高优"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-api-008",
+      "question": "Pytest的fixture在框架中如何应用？",
+      "answer": "fixture 在接口自动化中非常关键，我一般用来做三件事：会话级登录、测试数据准备与清理、依赖注入。\n\n```python\n@pytest.fixture\ndef create_user():\n    user_id = user_api.create_user()\n    yield user_id\n    user_api.delete_user(user_id)\n```\n\n通过 `function / class / module / session` 等不同 scope，可以灵活控制资源生命周期。",
+      "tags": [
+        "接口自动化",
+        "高优"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-api-009",
+      "question": "如何在框架中实现日志管理？",
+      "answer": "我通常用 `logging` 模块统一管理日志，核心包括日志分级、控制台和文件双输出、按日期切分、统一输出格式。\n\n```python\nformatter = \"%(asctime)s - %(levelname)s - %(filename)s:%(lineno)d - %(message)s\"\n```\n\n如果框架集成了 Allure，我还会把关键信息作为附件挂进报告里。",
+      "tags": [
+        "接口自动化",
+        "高优"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-api-010",
+      "question": "如何处理接口的依赖关系？",
+      "answer": "常见依赖主要有两类：鉴权依赖和数据依赖。我通常用 fixture 解决。\n\n```python\n@pytest.fixture\ndef order_id():\n    response = order_api.create_order()\n    oid = response.json()[\"data\"][\"id\"]\n    yield oid\n    order_api.delete_order(oid)\n```\n\n复杂场景下，也可以把多步依赖封装成组合接口，让用例层更简洁。",
+      "tags": [
+        "接口自动化",
+        "高优"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-api-011",
+      "question": "如何实现接口测试报告？",
+      "answer": "我常用 Allure。通常会在用例上打 feature、story、severity 标签，执行时生成结果目录，再把请求、响应、日志等作为附件挂进去。\n\n```python\n@allure.feature(\"用户模块\")\n@allure.story(\"用户登录\")\n@allure.severity(\"blocker\")\ndef test_login():\n    pass\n```\n\nAllure 适合向团队直观展示执行情况和失败步骤。",
+      "tags": [
+        "接口自动化",
+        "高优"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-api-012",
+      "question": "如何实现接口的数据库校验？",
+      "answer": "我会封装数据库工具类，通常用 `PyMySQL` 或 `SQLAlchemy`。\n\n```python\nclass DBUtil:\n    def query(self, sql):\n        cursor.execute(sql)\n        return cursor.fetchall()\n```\n\n典型场景是：调用创建订单接口后，到数据库里校验是否真正落库、状态是否正确。",
+      "tags": [
+        "接口自动化",
+        "高优"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-api-013",
+      "question": "如何处理接口的加密和签名？",
+      "answer": "常见有两种：请求签名和响应解密。\n\n```python\ndef generate_sign(params):\n    sorted_str = \"&\".join([f\"{k}={v}\" for k, v in sorted(params.items())])\n    return hashlib.md5((sorted_str + SECRET_KEY).encode()).hexdigest()\n```\n\n我会把签名、加密、解密逻辑都独立封装成工具类，在请求发送前或响应返回后自动处理。",
+      "tags": [
+        "接口自动化",
+        "高优"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-api-014",
+      "question": "如何实现接口的Mock测试？",
+      "answer": "我常用两种方式：使用 `responses` 等库拦截请求，或者搭建 WireMock / mitmproxy 之类的 Mock Server。\n\n```python\n@responses.activate\ndef test_with_mock():\n    responses.add(\n        responses.GET,\n        \"http://api.example.com/user\",\n        json={\"code\": 0, \"data\": {\"name\": \"test\"}},\n        status=200,\n    )\n```\n\nMock 适合开发阶段和异常场景验证，但不能替代真实链路测试。",
+      "tags": [
+        "接口自动化",
+        "高优"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-api-015",
+      "question": "如何实现失败重试机制？",
+      "answer": "我一般用 `pytest-rerunfailures`。可以全局配置，也可以对单个用例加标记。\n\n```ini\n[pytest]\nreruns = 2\nreruns_delay = 1\n```\n\n```python\n@pytest.mark.flaky(reruns=3, reruns_delay=2)\ndef test_unstable_api():\n    pass\n```\n\n不过重试只是兜底策略，根因问题还是要回头定位。",
+      "tags": [
+        "接口自动化",
+        "高优"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-api-016",
+      "question": "如何实现并发测试？",
+      "answer": "我会用 `pytest-xdist` 做多进程并发。\n\n```bash\npytest -n 4\n```\n\n并发时要特别注意测试数据隔离、共享资源加锁，以及 fixture 在 worker 间的执行行为。",
+      "tags": [
+        "接口自动化",
+        "高优"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-api-017",
+      "question": "如何实现持续集成CI/CD？",
+      "answer": "比较常见的是 Jenkins：拉代码、装依赖、执行 Pytest、生成 Allure 报告，再通过邮件或企业微信推送结果。关键点在于环境稳定、执行时间可控、失败时日志和报告足够完整。",
+      "tags": [
+        "接口自动化",
+        "高优"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-api-018",
+      "question": "如何实现接口性能测试？",
+      "answer": "接口性能测试我更常用 Locust，而且它可以复用接口自动化的封装。\n\n```python\nfrom locust import HttpUser, task, between\n\nclass UserBehavior(HttpUser):\n    wait_time = between(1, 3)\n\n    @task\n    def test_login(self):\n        self.client.post(\"/api/login\", json={\n            \"username\": \"test\",\n            \"password\": \"123456\",\n        })\n```\n\n性能测试重点关注 TPS、响应时间、失败率和稳定性。",
+      "tags": [
+        "接口自动化",
+        "高优"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-api-019",
+      "question": "如何管理和维护测试用例？",
+      "answer": "我会用 Pytest 的 mark 做分级分类，例如 P0 / P1 / smoke / regression；迭代后定期 review；并且让测试数据和用例逻辑分离。这样既方便 CI 选择执行范围，也能降低维护成本。",
+      "tags": [
+        "接口自动化",
+        "高优"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-api-020",
+      "question": "框架优化有哪些经验？",
+      "answer": "我一般从性能、稳定性、可维护性、可扩展性四个方向持续优化，例如 Session 复用、失败重试、单一职责、预留扩展点等。接入 CI 后，最好还能把成功率和失败趋势做成可观察指标。",
+      "tags": [
+        "接口自动化",
+        "高优"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-web-001",
+      "question": "你在项目中使用的Web自动化测试框架是什么？为什么选择它？",
+      "answer": "我常用 **Selenium + Pytest + POM**。Selenium 生态成熟、兼容多浏览器；Pytest 适合管理 fixture 和参数化；POM 能让页面元素和测试逻辑解耦。\n\n如果项目更看重执行速度、智能等待、录屏和网络拦截，我也会优先考虑 Playwright。",
+      "tags": [
+        "Web自动化",
+        "中等"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-web-002",
+      "question": "请描述你设计的Web自动化测试框架的整体架构",
+      "answer": "Web 自动化我也偏向分层结构：Page 层、TestCase 层、Base 层、Config 层和 Data 层。\n\n```text\nproject/\n├── pages/\n├── testcases/\n├── base/\n├── config/\n├── data/\n└── reports/\n```\n\n这样做利于扩展、复用和维护。",
+      "tags": [
+        "Web自动化",
+        "中等"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-web-003",
+      "question": "什么是POM模式？如何实现？",
+      "answer": "POM 的核心是把页面元素定位和操作封装到 Page 类里，用例层只描述业务流程。\n\n```python\nclass LoginPage:\n    def __init__(self, driver):\n        self.driver = driver\n        self.username_input = (By.ID, \"username\")\n        self.password_input = (By.ID, \"password\")\n        self.login_btn = (By.ID, \"loginBtn\")\n\n    def login(self, username, password):\n        self.driver.find_element(*self.username_input).send_keys(username)\n        self.driver.find_element(*self.password_input).send_keys(password)\n        self.driver.find_element(*self.login_btn).click()\n```\n\n页面变化时通常只需要改 PO 类。",
+      "tags": [
+        "Web自动化",
+        "中等"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-web-004",
+      "question": "Selenium中有哪些元素定位方式？你常用哪些？",
+      "answer": "常见方式有：`id`、`name`、`class_name`、`tag_name`、`link_text`、`partial_link_text`、`xpath`、`css_selector`。我通常优先用 `id`，其次是 `css selector`，再其次才是 `xpath`。",
+      "tags": [
+        "Web自动化",
+        "中等"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-web-005",
+      "question": "如何处理页面元素定位不到的问题？",
+      "answer": "我会先判断是不是元素还没加载、是不是在 iframe 中、或者表达式本身写错。关键做法是用显式等待。\n\n```python\nelement = WebDriverWait(driver, 10).until(\n    EC.visibility_of_element_located((By.ID, \"username\"))\n)\n```",
+      "tags": [
+        "Web自动化",
+        "中等"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-web-006",
+      "question": "Selenium中的等待机制有哪些？如何选择？",
+      "answer": "常见是三种：`sleep`、隐式等待、显式等待。我的策略是：隐式等待做兜底，关键元素用显式等待，尽量不用无脑 sleep。\n\n```python\nWebDriverWait(driver, 10).until(\n    EC.element_to_be_clickable((By.ID, \"submit\"))\n)\n```",
+      "tags": [
+        "Web自动化",
+        "中等"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-web-007",
+      "question": "如何封装BasePage基类？",
+      "answer": "BasePage 一般封装查找、点击、输入、取文本、截图、滚动、切 iframe 等公共方法。\n\n```python\nclass BasePage:\n    def __init__(self, driver):\n        self.driver = driver\n        self.wait = WebDriverWait(driver, 10)\n\n    def find_element(self, locator):\n        return self.wait.until(EC.visibility_of_element_located(locator))\n\n    def click(self, locator):\n        self.find_element(locator).click()\n```",
+      "tags": [
+        "Web自动化",
+        "中等"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-web-008",
+      "question": "如何处理浏览器驱动的管理？",
+      "answer": "我更推荐 `webdriver-manager`，这样不用手工维护驱动版本。通常也会配合 Pytest fixture 统一管理 driver 的创建和关闭。",
+      "tags": [
+        "Web自动化",
+        "中等"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-web-009",
+      "question": "如何处理弹窗（alert、confirm、prompt）？",
+      "answer": "核心是切换到 `alert` 对象。\n\n```python\nalert = WebDriverWait(driver, 10).until(EC.alert_is_present())\ntext = alert.text\nalert.accept()\n```\n\nprompt 场景下还可以先 `send_keys()` 再确认。",
+      "tags": [
+        "Web自动化",
+        "中等"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-web-010",
+      "question": "如何处理文件上传和下载？",
+      "answer": "上传最常见的是对文件输入框直接 `send_keys` 路径；下载则需要预先配置浏览器默认下载目录，并轮询文件是否真正落地。",
+      "tags": [
+        "Web自动化",
+        "中等"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-web-011",
+      "question": "如何处理动态元素（元素属性动态变化）？",
+      "answer": "我会优先寻找稳定锚点，例如固定文本、父子层级、兄弟节点，或者用属性部分匹配。\n\n```python\ndriver.find_element(By.XPATH, \"//div[contains(@id, 'dynamic')]\")\ndriver.find_element(By.XPATH, \"//label[text()='用户名']/following-sibling::input\")\n```",
+      "tags": [
+        "Web自动化",
+        "中等"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-web-012",
+      "question": "如何处理表格数据的验证？",
+      "answer": "通常会先把表格提取成二维数组，再在用例层做断言。复杂表格的解析逻辑最好封装到 Page 对象里，避免测试用例直接操作 DOM 细节。",
+      "tags": [
+        "Web自动化",
+        "中等"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-web-013",
+      "question": "如何实现数据驱动测试？",
+      "answer": "通常也是用 `pytest.mark.parametrize` 配合外部 YAML / JSON 文件，让测试数据和页面流程分离，这样更适合批量维护。",
+      "tags": [
+        "Web自动化",
+        "中等"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-web-014",
+      "question": "如何处理滑动验证码？",
+      "answer": "简单场景可用 `ActionChains` 模拟拖动；复杂场景可以结合图像识别或打码服务。如果测试环境允许，最好推动开发提供验证码 bypass。",
+      "tags": [
+        "Web自动化",
+        "中等"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-web-015",
+      "question": "如何实现失败截图和录屏？",
+      "answer": "最常见做法是在 `pytest_runtest_makereport` 里判断失败并截图，再把图片附加进 Allure。录屏则可以根据项目情况用浏览器 CDP、Playwright 或外部录屏方案。",
+      "tags": [
+        "Web自动化",
+        "中等"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-web-016",
+      "question": "如何实现多浏览器兼容性测试？",
+      "answer": "可以通过配置文件或命令行参数切换浏览器，也可以用参数化 fixture 实现同一组用例在 Chrome、Firefox、Edge 上轮跑。必要时再接入 Selenium Grid。",
+      "tags": [
+        "Web自动化",
+        "中等"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-web-017",
+      "question": "如何处理页面跳转和新窗口切换？",
+      "answer": "关键是保存当前句柄，在所有句柄中找到新窗口，操作完之后再关闭并切回原窗口。这样可以保证测试过程稳定可控。",
+      "tags": [
+        "Web自动化",
+        "中等"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-web-018",
+      "question": "如何提高用例执行速度？",
+      "answer": "我通常会从并发执行、减少固定等待、适度复用浏览器 Session、按标记分层执行这几方面优化。前提是环境要稳定、用例要独立。",
+      "tags": [
+        "Web自动化",
+        "中等"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-web-019",
+      "question": "Selenium和Playwright有什么区别？如何选择？",
+      "answer": "Selenium 的优势是成熟和普及；Playwright 的优势是速度更快、自动等待更智能、网络拦截和录屏能力更强。新项目如果没有历史包袱，我会更倾向于 Playwright。",
+      "tags": [
+        "Web自动化",
+        "中等"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-web-020",
+      "question": "Web自动化测试的最佳实践有哪些？",
+      "answer": "核心经验是：定位优先稳定性、坚持 POM、用显式等待替代 sleep、断言要看结果而不只是看元素、失败自动截图留痕、用例保持独立、冒烟回归分层管理。",
+      "tags": [
+        "Web自动化",
+        "中等"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-app-001",
+      "question": "你在项目中使用的App自动化测试框架是什么？为什么选择它？",
+      "answer": "我常用 **Appium + Pytest + POM**。Appium 跨平台，Android 和 iOS 都能测；它基于 WebDriver 协议，团队学习成本低；Pytest 适合管理设备和前置条件；POM 方便解耦页面和流程。",
+      "tags": [
+        "App自动化",
+        "低优"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-app-002",
+      "question": "请描述你设计的App自动化测试框架的整体架构",
+      "answer": "App 自动化框架我一般拆成 Page、TestCase、Base、Config、Utils 五层。这样职责比较清晰，也方便同时支持 Android 和 iOS。",
+      "tags": [
+        "App自动化",
+        "低优"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-app-003",
+      "question": "Appium的核心原理是什么？如何与App交互？",
+      "answer": "Appium 是典型的 C/S 架构：脚本请求 Appium Server，Server 再调用 Android 的 UIAutomator2 或 iOS 的 XCUITest 与 App 交互。它的优势是不需要改 App 源码。",
+      "tags": [
+        "App自动化",
+        "低优"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-app-004",
+      "question": "Android和iOS的元素定位方式有哪些？",
+      "answer": "Android 常用 `resource-id`、`accessibility id`、`xpath`、`uiautomator`；iOS 常用 `accessibility id`、`class name`、`predicate string`、`class chain`。一般优先用稳定 id。",
+      "tags": [
+        "App自动化",
+        "低优"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-app-005",
+      "question": "如何获取App的包名和启动Activity？",
+      "answer": "常见方法有三类：用 `aapt dump badging` 分析 apk、用 `adb shell dumpsys window` 查看当前 Activity、以及用 Python 脚本封装 adb 命令自动解析。",
+      "tags": [
+        "App自动化",
+        "低优"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-app-006",
+      "question": "如何设计BasePage类封装公共操作？",
+      "answer": "BasePage 通常会封装查找元素、点击、输入、滑动、截图、滚动查找等能力，这样 Page 对象只保留页面语义，不重复写底层操作。",
+      "tags": [
+        "App自动化",
+        "低优"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-app-007",
+      "question": "如何处理Toast提示信息的获取？",
+      "answer": "Toast 持续时间很短，通常要立刻显式等待，或者通过 `UiSelector().textContains()` 做判断。操作后应马上断言。",
+      "tags": [
+        "App自动化",
+        "低优"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-app-008",
+      "question": "如何实现滑动操作（上下左右滑动）？",
+      "answer": "核心是根据屏幕尺寸算坐标，再用 `swipe` 执行。上下左右本质是同一个思路，只是起点和终点不同。",
+      "tags": [
+        "App自动化",
+        "低优"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-app-009",
+      "question": "如何处理WebView和Native切换？",
+      "answer": "混合 App 中最关键的是切换 context。切到 `WEBVIEW` 后用 Web 方式定位，切回 `NATIVE_APP` 后再使用 Appium 原生定位。",
+      "tags": [
+        "App自动化",
+        "低优"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-app-010",
+      "question": "如何实现App的安装、卸载和启动？",
+      "answer": "可以通过 Appium 能力参数自动安装，也可以通过 adb 手动控制。为了保证用例独立性，自动化场景通常建议重置数据。",
+      "tags": [
+        "App自动化",
+        "低优"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-app-011",
+      "question": "如何处理权限弹窗（定位、相机、通知等）？",
+      "answer": "最推荐的方式是能力参数自动授权，例如 `autoGrantPermissions=True`。如果不能自动授权，再考虑在代码里处理系统弹窗或用 adb 预授权。",
+      "tags": [
+        "App自动化",
+        "低优"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-app-012",
+      "question": "如何实现列表滑动查找元素？",
+      "answer": "一般会设定最大滑动次数，循环滑动直到元素出现。这样既能解决长列表问题，也能避免无限循环。",
+      "tags": [
+        "App自动化",
+        "低优"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-app-013",
+      "question": "如何实现多设备并发测试？",
+      "answer": "多设备并发的关键是：每台设备一个 Appium Server、独立端口和 `systemPort`，再结合 Pytest 参数化与并发执行。重点要解决端口冲突和数据隔离。",
+      "tags": [
+        "App自动化",
+        "低优"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-app-014",
+      "question": "如何处理图片验证码？",
+      "answer": "常见做法是截图 OCR、接入打码平台，或者在测试环境通过万能验证码绕过。正式测试体系里，我更建议推动测试环境绕过验证码。",
+      "tags": [
+        "App自动化",
+        "低优"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-app-015",
+      "question": "如何实现Android和iOS双平台兼容？",
+      "answer": "通常会把平台差异收敛到配置和 Page 层。公共业务流程保持一致，差异化定位和特殊操作通过平台判断处理。",
+      "tags": [
+        "App自动化",
+        "低优"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-app-016",
+      "question": "如何实现失败重跑和失败截图？",
+      "answer": "和 Web 自动化类似，我会在 Pytest hook 中处理失败截图，再配合重跑插件做兜底。截图一般会附加到 Allure 报告里。",
+      "tags": [
+        "App自动化",
+        "低优"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-app-017",
+      "question": "如何进行弱网络测试？",
+      "answer": "可选方式包括 Appium 网络模拟、Charles / Fiddler 代理限速，以及 adb / tc 做系统级限速。重点是验证断网、弱网和恢复后的业务行为。",
+      "tags": [
+        "App自动化",
+        "低优"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-app-018",
+      "question": "如何获取App性能数据（CPU、内存、流量）？",
+      "answer": "通常通过 adb 命令抓取 CPU、内存和流量信息，先记录基线，再执行操作，最后做增长对比。这样更容易发现内存泄漏或性能抖动。",
+      "tags": [
+        "App自动化",
+        "低优"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-app-019",
+      "question": "如何实现App启动时间测试？",
+      "answer": "一般使用 `adb shell am start -W` 获取启动耗时，多次执行后求平均值，并区分冷启动和热启动。",
+      "tags": [
+        "App自动化",
+        "低优"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "py-auto-app-020",
+      "question": "App自动化测试的最佳实践有哪些？",
+      "answer": "我的经验是：定位优先稳定性、用显式等待替代固定等待、用例保持独立、失败自动截图留痕、坚持 POM 分层、外部化测试数据、接入 CI 跑冒烟，并持续关注启动时间、CPU 和内存指标。",
+      "tags": [
+        "App自动化",
+        "低优"
+      ],
+      "difficulty": "medium"
+    }
+  ]
+}

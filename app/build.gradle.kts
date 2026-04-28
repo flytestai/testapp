@@ -8,8 +8,18 @@ plugins {
 
 val appNamespace = providers.gradleProperty("APP_NAMESPACE").get()
 val appApplicationId = providers.gradleProperty("APP_APPLICATION_ID").get()
-val appDisplayName = providers.gradleProperty("APP_DISPLAY_NAME").get()
 val contentBaseUrl = providers.gradleProperty("CONTENT_BASE_URL").get()
+val appVersionCode = providers.gradleProperty("APP_VERSION_CODE").orNull?.toIntOrNull() ?: 1
+val appVersionName = providers.gradleProperty("APP_VERSION_NAME").orNull ?: "1.0"
+val signingStoreFile = providers.gradleProperty("SIGNING_STORE_FILE").orNull
+val signingStorePassword = providers.gradleProperty("SIGNING_STORE_PASSWORD").orNull
+val signingKeyAlias = providers.gradleProperty("SIGNING_KEY_ALIAS").orNull
+val signingKeyPassword = providers.gradleProperty("SIGNING_KEY_PASSWORD").orNull
+val releaseKeystoreFile = signingStoreFile?.let { file(it) }
+val hasReleaseSigning = releaseKeystoreFile?.isFile == true &&
+    !signingStorePassword.isNullOrBlank() &&
+    !signingKeyAlias.isNullOrBlank() &&
+    !signingKeyPassword.isNullOrBlank()
 
 android {
     namespace = appNamespace
@@ -19,24 +29,36 @@ android {
         applicationId = appApplicationId
         minSdk = 26
         targetSdk = 35
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = appVersionCode
+        versionName = appVersionName
         buildConfigField(
             "String",
             "CONTENT_BASE_URL",
             "\"$contentBaseUrl\""
         )
-        resValue("string", "app_name", appDisplayName)
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
     }
 
+    signingConfigs {
+        if (hasReleaseSigning) {
+            create("release") {
+                storeFile = releaseKeystoreFile
+                storePassword = signingStorePassword
+                keyAlias = signingKeyAlias
+                keyPassword = signingKeyPassword
+            }
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
+            if (hasReleaseSigning) {
+                signingConfig = signingConfigs.getByName("release")
+            }
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -84,6 +106,7 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.material:material-icons-extended")
+    implementation("com.google.android.material:material:1.12.0")
 
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.4")
 
@@ -101,7 +124,7 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
 
     implementation("io.coil-kt:coil-compose:2.7.0")
-    implementation("dev.jeziellago:compose-markdown:0.5.7")
+    implementation("com.github.jeziellago:compose-markdown:0.5.7")
 
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")

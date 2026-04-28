@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 
 class ProfileViewModel(
     private val historyRepository: HistoryRepository,
-    searchRepository: SearchRepository
+    private val searchRepository: SearchRepository
 ) : ViewModel() {
 
     val uiState: StateFlow<ProfileUiState> = combine(
@@ -30,6 +30,12 @@ class ProfileViewModel(
     fun clearHistory() {
         viewModelScope.launch {
             historyRepository.clearHistory()
+        }
+    }
+
+    fun clearSearchHistory() {
+        viewModelScope.launch {
+            searchRepository.clearSearchHistory()
         }
     }
 

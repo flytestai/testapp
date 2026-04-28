@@ -3,13 +3,18 @@ package com.testziliao.app.ui.search
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.testziliao.app.data.local.entity.ArticleEntity
+import com.testziliao.app.data.local.entity.QuestionItemEntity
+import com.testziliao.app.data.local.entity.QuestionSetEntity
 import com.testziliao.app.data.repository.ContentRepository
 import com.testziliao.app.data.repository.SearchRepository
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -21,6 +26,7 @@ class SearchViewModel(
 
     private val keyword = MutableStateFlow("")
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     val uiState: StateFlow<SearchUiState> = combine(
         keyword,
         searchRepository.observeRecentSearches(),
@@ -28,10 +34,10 @@ class SearchViewModel(
             val normalized = query.trim()
             if (normalized.isEmpty()) {
                 combine(
-                    kotlinx.coroutines.flow.flowOf(emptyList()),
-                    kotlinx.coroutines.flow.flowOf(emptyList()),
-                    kotlinx.coroutines.flow.flowOf(emptyList())
-                ) { articles, questionSets, questionItems ->
+                    flowOf(emptyList<ArticleEntity>()),
+                    flowOf(emptyList<QuestionSetEntity>()),
+                    flowOf(emptyList<QuestionItemEntity>())
+                ) { articles: List<ArticleEntity>, questionSets: List<QuestionSetEntity>, questionItems: List<QuestionItemEntity> ->
                     Triple(articles, questionSets, questionItems)
                 }
             } else {
@@ -39,7 +45,7 @@ class SearchViewModel(
                     contentRepository.searchArticles(normalized),
                     contentRepository.searchQuestionSets(normalized),
                     contentRepository.searchQuestionItems(normalized)
-                ) { articles, questionSets, questionItems ->
+                ) { articles: List<ArticleEntity>, questionSets: List<QuestionSetEntity>, questionItems: List<QuestionItemEntity> ->
                     Triple(articles, questionSets, questionItems)
                 }
             }
@@ -72,6 +78,12 @@ class SearchViewModel(
 
     fun useKeyword(value: String) {
         keyword.value = value
+    }
+
+    fun clearRecentSearches() {
+        viewModelScope.launch {
+            searchRepository.clearSearchHistory()
+        }
     }
 
     companion object {

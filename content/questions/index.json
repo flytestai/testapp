@@ -14,5 +14,77 @@
     "question_count": 3,
     "updated_at": "2026-04-28",
     "file_url": "content/questions/items/automation-interview.json"
+  },
+  {
+    "id": "python-testdev-interview",
+    "title": "Python测开面试题",
+    "category_id": "interview",
+    "question_count": 40,
+    "updated_at": "2026-04-28",
+    "file_url": "content/questions/items/python-testdev-interview.json"
+  },
+  {
+    "id": "python-automation-interview",
+    "title": "Python自动化测试面试题",
+    "category_id": "interview",
+    "question_count": 60,
+    "updated_at": "2026-04-28",
+    "file_url": "content/questions/items/python-automation-interview.json"
+  },
+  {
+    "id": "performance-interview",
+    "title": "性能测试面试题",
+    "category_id": "interview",
+    "question_count": 100,
+    "updated_at": "2026-04-28",
+    "file_url": "content/questions/items/performance-interview.json"
+  },
+  {
+    "id": "coding-handwrite",
+    "title": "手撕代码",
+    "category_id": "interview",
+    "question_count": 40,
+    "updated_at": "2026-04-28",
+    "file_url": "content/questions/items/coding-handwrite.json"
+  },
+  {
+    "id": "hr-interview",
+    "title": "HR面试题",
+    "category_id": "interview",
+    "question_count": 50,
+    "updated_at": "2026-04-28",
+    "file_url": "content/questions/items/hr-interview.json"
+  },
+  {
+    "id": "database-interview",
+    "title": "数据库面试题",
+    "category_id": "interview",
+    "question_count": 100,
+    "updated_at": "2026-04-28",
+    "file_url": "content/questions/items/database-interview.json"
+  },
+  {
+    "id": "linux-commands-interview",
+    "title": "高频面试Linux命令",
+    "category_id": "interview",
+    "question_count": 100,
+    "updated_at": "2026-04-28",
+    "file_url": "content/questions/items/linux-commands-interview.json"
+  },
+  {
+    "id": "network-protocol-interview",
+    "title": "网络协议面试题",
+    "category_id": "interview",
+    "question_count": 26,
+    "updated_at": "2026-04-28",
+    "file_url": "content/questions/items/network-protocol-interview.json"
+  },
+  {
+    "id": "middleware-interview",
+    "title": "中间件面试题",
+    "category_id": "interview",
+    "question_count": 40,
+    "updated_at": "2026-04-28",
+    "file_url": "content/questions/items/middleware-interview.json"
   }
 ]

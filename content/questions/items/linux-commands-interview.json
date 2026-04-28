@@ -1,0 +1,1006 @@
+{
+  "id": "linux-commands-interview",
+  "title": "高频面试Linux命令",
+  "questions": [
+    {
+      "id": "linux-001",
+      "question": "ls 命令的作用是什么？",
+      "answer": "**命令：** `ls`\n\n**作用：** 列出目录内容\n\n**示例：**\n\n```bash\nls -la  # 列出所有文件（包括隐藏文件）的详细信息\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-002",
+      "question": "cd 命令的作用是什么？",
+      "answer": "**命令：** `cd`\n\n**作用：** 切换目录\n\n**示例：**\n\n```bash\ncd /var/log  # 切换到/var/log目录\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-003",
+      "question": "pwd 命令的作用是什么？",
+      "answer": "**命令：** `pwd`\n\n**作用：** 显示当前工作目录\n\n**示例：**\n\n```bash\npwd  # 显示当前所在目录的完整路径\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-004",
+      "question": "cat 命令的作用是什么？",
+      "answer": "**命令：** `cat`\n\n**作用：** 查看文件内容\n\n**示例：**\n\n```bash\ncat config.yml  # 查看配置文件内容\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-005",
+      "question": "grep 命令的作用是什么？",
+      "answer": "**命令：** `grep`\n\n**作用：** 文本搜索\n\n**示例：**\n\n```bash\ngrep -n \"error\" app.log  # 在日志中搜索\"error\"并显示行号\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-006",
+      "question": "tail 命令的作用是什么？",
+      "answer": "**命令：** `tail`\n\n**作用：** 查看文件尾部\n\n**示例：**\n\n```bash\ntail -f application.log  # 实时监控日志文件变化\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-007",
+      "question": "head 命令的作用是什么？",
+      "answer": "**命令：** `head`\n\n**作用：** 查看文件头部\n\n**示例：**\n\n```bash\nhead -20 app.log  # 查看日志前20行\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-008",
+      "question": "cp 命令的作用是什么？",
+      "answer": "**命令：** `cp`\n\n**作用：** 复制文件或目录\n\n**示例：**\n\n```bash\ncp -r source_dir/ dest_dir/  # 递归复制目录\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-009",
+      "question": "mv 命令的作用是什么？",
+      "answer": "**命令：** `mv`\n\n**作用：** 移动或重命名文件\n\n**示例：**\n\n```bash\nmv old_name.txt new_name.txt  # 重命名文件\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-010",
+      "question": "rm 命令的作用是什么？",
+      "answer": "**命令：** `rm`\n\n**作用：** 删除文件或目录\n\n**示例：**\n\n```bash\nrm -rf directory/  # 强制递归删除目录\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-011",
+      "question": "mkdir 命令的作用是什么？",
+      "answer": "**命令：** `mkdir`\n\n**作用：** 创建目录\n\n**示例：**\n\n```bash\nmkdir -p parent/child  # 创建多级目录\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-012",
+      "question": "rmdir 命令的作用是什么？",
+      "answer": "**命令：** `rmdir`\n\n**作用：** 删除空目录\n\n**示例：**\n\n```bash\nrmdir empty_dir  # 删除空目录\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-013",
+      "question": "touch 命令的作用是什么？",
+      "answer": "**命令：** `touch`\n\n**作用：** 创建空文件或更新文件时间戳\n\n**示例：**\n\n```bash\ntouch new_file.txt  # 创建新文件\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-014",
+      "question": "find 命令的作用是什么？",
+      "answer": "**命令：** `find`\n\n**作用：** 查找文件\n\n**示例：**\n\n```bash\nfind /home -name \"*.log\"  # 查找所有.log文件\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-015",
+      "question": "which 命令的作用是什么？",
+      "answer": "**命令：** `which`\n\n**作用：** 查找命令路径\n\n**示例：**\n\n```bash\nwhich python  # 查找python命令位置\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-016",
+      "question": "whereis 命令的作用是什么？",
+      "answer": "**命令：** `whereis`\n\n**作用：** 查找命令相关文件\n\n**示例：**\n\n```bash\nwhereis java  # 查找java相关文件\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-017",
+      "question": "locate 命令的作用是什么？",
+      "answer": "**命令：** `locate`\n\n**作用：** 快速查找文件\n\n**示例：**\n\n```bash\nlocate nginx.conf  # 查找nginx配置文件\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-018",
+      "question": "chmod 命令的作用是什么？",
+      "answer": "**命令：** `chmod`\n\n**作用：** 修改文件权限\n\n**示例：**\n\n```bash\nchmod +x script.sh  # 添加执行权限\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-019",
+      "question": "chown 命令的作用是什么？",
+      "answer": "**命令：** `chown`\n\n**作用：** 修改文件所有者\n\n**示例：**\n\n```bash\nchown user:group file.txt  # 修改文件所有者和组\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-020",
+      "question": "ps 命令的作用是什么？",
+      "answer": "**命令：** `ps`\n\n**作用：** 查看进程状态\n\n**示例：**\n\n```bash\nps aux | grep nginx  # 查看nginx进程\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-021",
+      "question": "top 命令的作用是什么？",
+      "answer": "**命令：** `top`\n\n**作用：** 实时显示进程状态\n\n**示例：**\n\n```bash\ntop  # 查看系统进程和资源使用情况\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-022",
+      "question": "kill 命令的作用是什么？",
+      "answer": "**命令：** `kill`\n\n**作用：** 终止进程\n\n**示例：**\n\n```bash\nkill -9 1234  # 强制终止PID为1234的进程\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-023",
+      "question": "killall 命令的作用是什么？",
+      "answer": "**命令：** `killall`\n\n**作用：** 终止同名进程\n\n**示例：**\n\n```bash\nkillall chrome  # 终止所有chrome进程\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-024",
+      "question": "pkill 命令的作用是什么？",
+      "answer": "**命令：** `pkill`\n\n**作用：** 按模式终止进程\n\n**示例：**\n\n```bash\npkill -f \"python script\"  # 终止匹配模式的进程\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-025",
+      "question": "bg 命令的作用是什么？",
+      "answer": "**命令：** `bg`\n\n**作用：** 将进程放到后台运行\n\n**示例：**\n\n```bash\nbg %1  # 将作业1放到后台运行\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-026",
+      "question": "fg 命令的作用是什么？",
+      "answer": "**命令：** `fg`\n\n**作用：** 将进程放到前台运行\n\n**示例：**\n\n```bash\nfg %1  # 将作业1放到前台运行\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-027",
+      "question": "jobs 命令的作用是什么？",
+      "answer": "**命令：** `jobs`\n\n**作用：** 查看后台作业\n\n**示例：**\n\n```bash\njobs  # 查看当前终端后台作业\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-028",
+      "question": "nohup 命令的作用是什么？",
+      "answer": "**命令：** `nohup`\n\n**作用：** 使进程在退出终端后继续运行\n\n**示例：**\n\n```bash\nnohup python server.py &  # 后台运行并不受终端退出影响\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-029",
+      "question": "df 命令的作用是什么？",
+      "answer": "**命令：** `df`\n\n**作用：** 显示磁盘空间使用情况\n\n**示例：**\n\n```bash\ndf -h  # 以易读格式显示磁盘空间\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-030",
+      "question": "du 命令的作用是什么？",
+      "answer": "**命令：** `du`\n\n**作用：** 显示目录空间使用情况\n\n**示例：**\n\n```bash\ndu -sh /var/log  # 显示/var/log目录总大小\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-031",
+      "question": "free 命令的作用是什么？",
+      "answer": "**命令：** `free`\n\n**作用：** 显示内存使用情况\n\n**示例：**\n\n```bash\nfree -h  # 以易读格式显示内存使用\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-032",
+      "question": "uname 命令的作用是什么？",
+      "answer": "**命令：** `uname`\n\n**作用：** 显示系统信息\n\n**示例：**\n\n```bash\nuname -a  # 显示所有系统信息\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-033",
+      "question": "uptime 命令的作用是什么？",
+      "answer": "**命令：** `uptime`\n\n**作用：** 显示系统运行时间\n\n**示例：**\n\n```bash\nuptime  # 显示系统运行时间和负载\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-034",
+      "question": "who 命令的作用是什么？",
+      "answer": "**命令：** `who`\n\n**作用：** 显示当前登录用户\n\n**示例：**\n\n```bash\nwho  # 显示当前登录用户信息\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-035",
+      "question": "w 命令的作用是什么？",
+      "answer": "**命令：** `w`\n\n**作用：** 显示登录用户及活动\n\n**示例：**\n\n```bash\nw  # 显示登录用户及其活动\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-036",
+      "question": "last 命令的作用是什么？",
+      "answer": "**命令：** `last`\n\n**作用：** 显示登录历史\n\n**示例：**\n\n```bash\nlast  # 显示用户登录历史\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-037",
+      "question": "history 命令的作用是什么？",
+      "answer": "**命令：** `history`\n\n**作用：** 显示命令历史\n\n**示例：**\n\n```bash\nhistory  # 显示命令历史记录\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-038",
+      "question": "tar 命令的作用是什么？",
+      "answer": "**命令：** `tar`\n\n**作用：** 打包压缩文件\n\n**示例：**\n\n```bash\ntar -czvf archive.tar.gz directory/  # 创建gzip压缩包\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-039",
+      "question": "gzip 命令的作用是什么？",
+      "answer": "**命令：** `gzip`\n\n**作用：** 压缩文件\n\n**示例：**\n\n```bash\ngzip file.txt  # 压缩文件\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-040",
+      "question": "gunzip 命令的作用是什么？",
+      "answer": "**命令：** `gunzip`\n\n**作用：** 解压缩文件\n\n**示例：**\n\n```bash\ngunzip file.txt.gz  # 解压缩文件\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-041",
+      "question": "zip 命令的作用是什么？",
+      "answer": "**命令：** `zip`\n\n**作用：** 创建zip压缩包\n\n**示例：**\n\n```bash\nzip archive.zip file1.txt file2.txt  # 创建zip压缩包\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-042",
+      "question": "unzip 命令的作用是什么？",
+      "answer": "**命令：** `unzip`\n\n**作用：** 解压zip文件\n\n**示例：**\n\n```bash\nunzip archive.zip  # 解压zip文件\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-043",
+      "question": "ssh 命令的作用是什么？",
+      "answer": "**命令：** `ssh`\n\n**作用：** 远程登录\n\n**示例：**\n\n```bash\nssh user@hostname  # 远程登录到主机\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-044",
+      "question": "scp 命令的作用是什么？",
+      "answer": "**命令：** `scp`\n\n**作用：** 安全复制文件\n\n**示例：**\n\n```bash\nscp file.txt user@hostname:/path/  # 复制文件到远程主机\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-045",
+      "question": "rsync 命令的作用是什么？",
+      "answer": "**命令：** `rsync`\n\n**作用：** 远程同步文件\n\n**示例：**\n\n```bash\nrsync -av source/ user@hostname:destination/  # 同步文件到远程主机\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-046",
+      "question": "ping 命令的作用是什么？",
+      "answer": "**命令：** `ping`\n\n**作用：** 测试网络连接\n\n**示例：**\n\n```bash\nping example.com  # 测试与example.com的网络连接\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-047",
+      "question": "traceroute 命令的作用是什么？",
+      "answer": "**命令：** `traceroute`\n\n**作用：** 显示数据包路径\n\n**示例：**\n\n```bash\ntraceroute example.com  # 显示到example.com的网络路径\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-048",
+      "question": "netstat 命令的作用是什么？",
+      "answer": "**命令：** `netstat`\n\n**作用：** 显示网络状态\n\n**示例：**\n\n```bash\nnetstat -tuln  # 显示所有监听端口\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-049",
+      "question": "ss 命令的作用是什么？",
+      "answer": "**命令：** `ss`\n\n**作用：** 显示套接字统计\n\n**示例：**\n\n```bash\nss -tuln  # 显示监听端口(比netstat更快)\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-050",
+      "question": "ifconfig 命令的作用是什么？",
+      "answer": "**命令：** `ifconfig`\n\n**作用：** 配置网络接口\n\n**示例：**\n\n```bash\nifconfig eth0  # 显示eth0接口信息\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-051",
+      "question": "ip 命令的作用是什么？",
+      "answer": "**命令：** `ip`\n\n**作用：** 显示/操作路由、设备等\n\n**示例：**\n\n```bash\nip addr show  # 显示所有网络接口信息\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-052",
+      "question": "route 命令的作用是什么？",
+      "answer": "**命令：** `route`\n\n**作用：** 显示/操作IP路由表\n\n**示例：**\n\n```bash\nroute -n  # 显示路由表\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-053",
+      "question": "hostname 命令的作用是什么？",
+      "answer": "**命令：** `hostname`\n\n**作用：** 显示或设置主机名\n\n**示例：**\n\n```bash\nhostname  # 显示当前主机名\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-054",
+      "question": "curl 命令的作用是什么？",
+      "answer": "**命令：** `curl`\n\n**作用：** 传输数据\n\n**示例：**\n\n```bash\ncurl -I http://example.com  # 获取HTTP头信息\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-055",
+      "question": "wget 命令的作用是什么？",
+      "answer": "**命令：** `wget`\n\n**作用：** 下载文件\n\n**示例：**\n\n```bash\nwget http://example.com/file.zip  # 下载文件\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-056",
+      "question": "lynx 命令的作用是什么？",
+      "answer": "**命令：** `lynx`\n\n**作用：** 文本浏览器\n\n**示例：**\n\n```bash\nlynx http://example.com  # 以文本方式浏览网页\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-057",
+      "question": "telnet 命令的作用是什么？",
+      "answer": "**命令：** `telnet`\n\n**作用：** 远程登录\n\n**示例：**\n\n```bash\ntelnet hostname 22  # 测试端口连通性\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-058",
+      "question": "nc 命令的作用是什么？",
+      "answer": "**命令：** `nc`\n\n**作用：** 网络工具\n\n**示例：**\n\n```bash\nnc -zv hostname 80  # 测试端口连通性\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-059",
+      "question": "ssh-keygen 命令的作用是什么？",
+      "answer": "**命令：** `ssh-keygen`\n\n**作用：** 生成SSH密钥\n\n**示例：**\n\n```bash\nssh-keygen -t rsa  # 生成RSA密钥对\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-060",
+      "question": "ssh-copy-id 命令的作用是什么？",
+      "answer": "**命令：** `ssh-copy-id`\n\n**作用：** 复制SSH密钥到远程主机\n\n**示例：**\n\n```bash\nssh-copy-id user@hostname  # 复制公钥到远程主机\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-061",
+      "question": "sed 命令的作用是什么？",
+      "answer": "**命令：** `sed`\n\n**作用：** 流编辑器\n\n**示例：**\n\n```bash\nsed 's/old/new/g' file.txt  # 替换文件中的文本\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-062",
+      "question": "awk 命令的作用是什么？",
+      "answer": "**命令：** `awk`\n\n**作用：** 文本处理工具\n\n**示例：**\n\n```bash\nawk '{print $1}' file.txt  # 打印每行第一个字段\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-063",
+      "question": "cut 命令的作用是什么？",
+      "answer": "**命令：** `cut`\n\n**作用：** 剪切文件内容\n\n**示例：**\n\n```bash\ncut -d: -f1 /etc/passwd  # 提取/etc/passwd中的用户名\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-064",
+      "question": "paste 命令的作用是什么？",
+      "answer": "**命令：** `paste`\n\n**作用：** 合并文件行\n\n**示例：**\n\n```bash\npaste file1.txt file2.txt  # 合并两个文件的行\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-065",
+      "question": "sort 命令的作用是什么？",
+      "answer": "**命令：** `sort`\n\n**作用：** 排序文件内容\n\n**示例：**\n\n```bash\nsort file.txt  # 对文件内容排序\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-066",
+      "question": "uniq 命令的作用是什么？",
+      "answer": "**命令：** `uniq`\n\n**作用：** 报告或忽略重复行\n\n**示例：**\n\n```bash\nuniq file.txt  # 去除重复行\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-067",
+      "question": "wc 命令的作用是什么？",
+      "answer": "**命令：** `wc`\n\n**作用：** 统计文件内容\n\n**示例：**\n\n```bash\nwc -l file.txt  # 统计文件行数\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-068",
+      "question": "diff 命令的作用是什么？",
+      "answer": "**命令：** `diff`\n\n**作用：** 比较文件差异\n\n**示例：**\n\n```bash\ndiff file1.txt file2.txt  # 比较两个文件差异\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-069",
+      "question": "patch 命令的作用是什么？",
+      "answer": "**命令：** `patch`\n\n**作用：** 应用补丁文件\n\n**示例：**\n\n```bash\npatch -p1 < patchfile  # 应用补丁\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-070",
+      "question": "ln 命令的作用是什么？",
+      "answer": "**命令：** `ln`\n\n**作用：** 创建链接\n\n**示例：**\n\n```bash\nln -s /path/to/file linkname  # 创建软链接\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-071",
+      "question": "readlink 命令的作用是什么？",
+      "answer": "**命令：** `readlink`\n\n**作用：** 显示符号链接值\n\n**示例：**\n\n```bash\nreadlink /usr/bin/python  # 显示符号链接指向的实际路径\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-072",
+      "question": "stat 命令的作用是什么？",
+      "answer": "**命令：** `stat`\n\n**作用：** 显示文件状态\n\n**示例：**\n\n```bash\nstat file.txt  # 显示文件详细信息\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-073",
+      "question": "file 命令的作用是什么？",
+      "answer": "**命令：** `file`\n\n**作用：** 确定文件类型\n\n**示例：**\n\n```bash\nfile document.pdf  # 确定文件类型\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-074",
+      "question": "md5sum 命令的作用是什么？",
+      "answer": "**命令：** `md5sum`\n\n**作用：** 计算MD5校验和\n\n**示例：**\n\n```bash\nmd5sum file.iso  # 计算文件MD5值\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-075",
+      "question": "sha256sum 命令的作用是什么？",
+      "answer": "**命令：** `sha256sum`\n\n**作用：** 计算SHA256校验和\n\n**示例：**\n\n```bash\nsha256sum file.iso  # 计算文件SHA256值\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-076",
+      "question": "date 命令的作用是什么？",
+      "answer": "**命令：** `date`\n\n**作用：** 显示或设置系统日期时间\n\n**示例：**\n\n```bash\ndate +\"%Y-%m-%d %H:%M:%S\"  # 显示格式化日期时间\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-077",
+      "question": "cal 命令的作用是什么？",
+      "answer": "**命令：** `cal`\n\n**作用：** 显示日历\n\n**示例：**\n\n```bash\ncal  # 显示当月日历\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-078",
+      "question": "time 命令的作用是什么？",
+      "answer": "**命令：** `time`\n\n**作用：** 测量命令执行时间\n\n**示例：**\n\n```bash\ntime ls -la  # 测量命令执行时间\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-079",
+      "question": "timeout 命令的作用是什么？",
+      "answer": "**命令：** `timeout`\n\n**作用：** 运行有时间限制的命令\n\n**示例：**\n\n```bash\ntimeout 5s ping example.com  # 5秒后终止ping命令\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-080",
+      "question": "watch 命令的作用是什么？",
+      "answer": "**命令：** `watch`\n\n**作用：** 定期执行命令\n\n**示例：**\n\n```bash\nwatch -n 1 'date'  # 每秒执行一次date命令\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-081",
+      "question": "at 命令的作用是什么？",
+      "answer": "**命令：** `at`\n\n**作用：** 定时执行任务\n\n**示例：**\n\n```bash\necho \"ls -la\" | at midnight  # 午夜执行命令\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-082",
+      "question": "crontab 命令的作用是什么？",
+      "answer": "**命令：** `crontab`\n\n**作用：** 管理定时任务\n\n**示例：**\n\n```bash\ncrontab -l  # 列出当前用户的定时任务\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-083",
+      "question": "systemctl 命令的作用是什么？",
+      "answer": "**命令：** `systemctl`\n\n**作用：** 控制系统服务\n\n**示例：**\n\n```bash\nsystemctl status nginx  # 查看nginx服务状态\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-084",
+      "question": "service 命令的作用是什么？",
+      "answer": "**命令：** `service`\n\n**作用：** 运行系统服务脚本\n\n**示例：**\n\n```bash\nservice nginx restart  # 重启nginx服务\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-085",
+      "question": "journalctl 命令的作用是什么？",
+      "answer": "**命令：** `journalctl`\n\n**作用：** 查询系统日志\n\n**示例：**\n\n```bash\njournalctl -u nginx  # 查看nginx服务日志\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-086",
+      "question": "dmesg 命令的作用是什么？",
+      "answer": "**命令：** `dmesg`\n\n**作用：** 显示内核消息\n\n**示例：**\n\n```bash\ndmesg | grep error  # 查找内核错误消息\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-087",
+      "question": "lsof 命令的作用是什么？",
+      "answer": "**命令：** `lsof`\n\n**作用：** 列出打开文件\n\n**示例：**\n\n```bash\nlsof -i :80  # 查找使用80端口的进程\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-088",
+      "question": "strace 命令的作用是什么？",
+      "answer": "**命令：** `strace`\n\n**作用：** 跟踪系统调用\n\n**示例：**\n\n```bash\nstrace -f python script.py  # 跟踪Python脚本的系统调用\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-089",
+      "question": "vmstat 命令的作用是什么？",
+      "answer": "**命令：** `vmstat`\n\n**作用：** 显示虚拟内存统计\n\n**示例：**\n\n```bash\nvmstat 1  # 每秒显示一次虚拟内存统计\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-090",
+      "question": "iostat 命令的作用是什么？",
+      "answer": "**命令：** `iostat`\n\n**作用：** 显示CPU和I/O统计\n\n**示例：**\n\n```bash\niostat -x 1  # 每秒显示一次扩展I/O统计\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-091",
+      "question": "mpstat 命令的作用是什么？",
+      "answer": "**命令：** `mpstat`\n\n**作用：** 显示CPU统计\n\n**示例：**\n\n```bash\nmpstat 1  # 每秒显示一次CPU统计\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-092",
+      "question": "pidstat 命令的作用是什么？",
+      "answer": "**命令：** `pidstat`\n\n**作用：** 显示进程统计\n\n**示例：**\n\n```bash\npidstat -u 1  # 每秒显示一次进程CPU使用情况\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-093",
+      "question": "sar 命令的作用是什么？",
+      "answer": "**命令：** `sar`\n\n**作用：** 系统活动报告\n\n**示例：**\n\n```bash\nsar -u 1 3  # 每秒显示一次CPU使用，共3次\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-094",
+      "question": "ulimit 命令的作用是什么？",
+      "answer": "**命令：** `ulimit`\n\n**作用：** 控制shell资源\n\n**示例：**\n\n```bash\nulimit -a  # 显示所有资源限制\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-095",
+      "question": "env 命令的作用是什么？",
+      "answer": "**命令：** `env`\n\n**作用：** 显示环境变量\n\n**示例：**\n\n```bash\nenv  # 显示所有环境变量\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-096",
+      "question": "export 命令的作用是什么？",
+      "answer": "**命令：** `export`\n\n**作用：** 设置环境变量\n\n**示例：**\n\n```bash\nexport PATH=$PATH:/new/path  # 添加新路径到PATH\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-097",
+      "question": "unset 命令的作用是什么？",
+      "answer": "**命令：** `unset`\n\n**作用：** 删除变量或函数\n\n**示例：**\n\n```bash\nunset VARIABLE  # 删除环境变量\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-098",
+      "question": "alias 命令的作用是什么？",
+      "answer": "**命令：** `alias`\n\n**作用：** 创建命令别名\n\n**示例：**\n\n```bash\nalias ll='ls -alF'  # 创建ll别名\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-099",
+      "question": "unalias 命令的作用是什么？",
+      "answer": "**命令：** `unalias`\n\n**作用：** 删除别名\n\n**示例：**\n\n```bash\nunalias ll  # 删除ll别名\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "linux-100",
+      "question": "source 命令的作用是什么？",
+      "answer": "**命令：** `source`\n\n**作用：** 执行脚本文件\n\n**示例：**\n\n```bash\nsource ~/.bashrc  # 重新加载bash配置\n```",
+      "tags": [
+        "Linux命令",
+        "高频面试Linux命令"
+      ],
+      "difficulty": "easy"
+    }
+  ]
+}

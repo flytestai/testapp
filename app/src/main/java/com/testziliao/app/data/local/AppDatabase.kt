@@ -34,7 +34,7 @@ import com.testziliao.app.data.local.entity.SearchHistoryEntity
         SearchHistoryEntity::class
     ],
     version = 1,
-    exportSchema = true
+    exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun categoryDao(): CategoryDao

@@ -1,0 +1,28 @@
+[
+  {
+    "id": "api-test-basics",
+    "title": "接口测试基础入门",
+    "summary": "从请求、响应、断言三个角度理解接口测试的基本做法。",
+    "category_id": "api",
+    "tags": ["HTTP", "断言", "接口测试"],
+    "cover": null,
+    "author": "Admin",
+    "published_at": "2026-04-28",
+    "updated_at": "2026-04-28",
+    "markdown_url": "content/articles/posts/api-test-basics.md",
+    "featured": true
+  },
+  {
+    "id": "appium-starter",
+    "title": "Appium 自动化测试起步",
+    "summary": "适合初学者的移动端自动化测试入门提纲。",
+    "category_id": "automation",
+    "tags": ["Appium", "Android", "自动化测试"],
+    "cover": null,
+    "author": "Admin",
+    "published_at": "2026-04-27",
+    "updated_at": "2026-04-28",
+    "markdown_url": "content/articles/posts/appium-starter.md",
+    "featured": false
+  }
+]

@@ -1,0 +1,18 @@
+[
+  {
+    "id": "software-test-basics",
+    "title": "软件测试基础面试题",
+    "category_id": "interview",
+    "question_count": 3,
+    "updated_at": "2026-04-28",
+    "file_url": "content/questions/items/software-test-basics.json"
+  },
+  {
+    "id": "automation-interview",
+    "title": "自动化测试面试题",
+    "category_id": "interview",
+    "question_count": 3,
+    "updated_at": "2026-04-28",
+    "file_url": "content/questions/items/automation-interview.json"
+  }
+]

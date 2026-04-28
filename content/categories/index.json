@@ -1,0 +1,27 @@
+[
+  {
+    "id": "theory",
+    "name": "测试理论",
+    "type": "article"
+  },
+  {
+    "id": "api",
+    "name": "接口测试",
+    "type": "mixed"
+  },
+  {
+    "id": "automation",
+    "name": "自动化测试",
+    "type": "mixed"
+  },
+  {
+    "id": "performance",
+    "name": "性能测试",
+    "type": "article"
+  },
+  {
+    "id": "interview",
+    "name": "面试题",
+    "type": "question"
+  }
+]

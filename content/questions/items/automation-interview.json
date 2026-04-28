@@ -1,0 +1,27 @@
+{
+  "id": "automation-interview",
+  "title": "自动化测试面试题",
+  "questions": [
+    {
+      "id": "auto-q001",
+      "question": "为什么自动化测试不适合覆盖所有用例？",
+      "answer": "因为自动化测试有维护成本，更适合高频、稳定、重复执行的场景，不适合所有临时性或变化很快的验证任务。",
+      "tags": ["自动化测试"],
+      "difficulty": "easy"
+    },
+    {
+      "id": "auto-q002",
+      "question": "页面对象模型有什么作用？",
+      "answer": "它把页面元素和操作逻辑封装起来，减少重复代码，提升可维护性。",
+      "tags": ["POM", "设计模式"],
+      "difficulty": "medium"
+    },
+    {
+      "id": "auto-q003",
+      "question": "自动化脚本经常不稳定，通常先排查什么？",
+      "answer": "先排查元素定位稳定性、等待策略、测试数据依赖和环境波动。",
+      "tags": ["稳定性", "定位", "等待"],
+      "difficulty": "medium"
+    }
+  ]
+}
